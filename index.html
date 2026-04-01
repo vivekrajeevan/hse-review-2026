@@ -4,773 +4,1071 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>STS – HSE Management Review 2026</title>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;600;700;800&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
-:root{--green:#1a6e35;--gm:#2a8f47;--gl:#3cbe62;--red:#c0392b;--amber:#e67e22;--teal:#0d7a6e;--slate:#1e2d3d;--slate2:#2c3e50;--bg:#f4f6f3;--card:#fff;--border:#dde6d5;--txt:#1e2d3d;--muted:#5a6a5e}
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--txt);line-height:1.6;overflow-x:hidden}
-
-/* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--slate);display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;height:58px;box-shadow:0 2px 20px rgba(0,0,0,.35)}
-.nav-brand{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.35rem;letter-spacing:1px;color:#fff;display:flex;align-items:center;gap:.6rem}
-.nav-brand span{color:var(--gl)}
-.nav-pill{background:rgba(60,190,98,.15);border:1px solid rgba(60,190,98,.3);color:var(--gl);font-size:.65rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:.2rem .6rem;border-radius:50px}
-.nav-links{display:flex}
-.nav-links a{color:#aec8b4;font-size:.72rem;font-weight:600;letter-spacing:.8px;text-transform:uppercase;text-decoration:none;padding:0 .85rem;height:58px;display:flex;align-items:center;border-bottom:2px solid transparent;transition:all .2s}
-.nav-links a:hover,.nav-links a.active{color:#fff;border-bottom-color:var(--gl)}
-.btn-present{background:var(--gm);color:#fff;border:none;font-family:'Barlow',sans-serif;font-size:.75rem;font-weight:600;letter-spacing:.5px;padding:.45rem 1rem;border-radius:6px;cursor:pointer;transition:background .2s}
-.btn-present:hover{background:var(--gl)}
-
-/* PROGRESS BAR */
-#progress-bar{position:fixed;top:58px;left:0;height:3px;background:var(--gl);z-index:199;width:0%;transition:width .1s linear}
-
-/* HERO */
-.hero{margin-top:58px;min-height:100vh;background:linear-gradient(135deg,var(--slate) 0%,#0f1e12 55%,#0b2a1a 100%);display:grid;align-items:center;position:relative;overflow:hidden;padding:5rem 2.5rem 4rem}
-.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 65% 55% at 82% 50%,rgba(42,143,71,.13) 0%,transparent 70%),radial-gradient(ellipse 45% 65% at 8% 80%,rgba(13,122,110,.1) 0%,transparent 70%)}
-#particles{position:absolute;inset:0;overflow:hidden;pointer-events:none}
-#particles span{position:absolute;border-radius:50%;opacity:.12;animation:float linear infinite}
-@keyframes float{0%{transform:translateY(100vh) scale(0)}100%{transform:translateY(-10vh) scale(1)}}
-.hero-grid{max-width:1200px;margin:0 auto;width:100%;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;position:relative;z-index:1}
-.hero-eyebrow{font-family:'Barlow Condensed',sans-serif;font-size:.82rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--gl);margin-bottom:1rem}
-.hero-title{font-family:'Barlow Condensed',sans-serif;font-size:clamp(2.8rem,5.5vw,4.8rem);font-weight:800;line-height:1;color:#fff;letter-spacing:-1px}
-.hero-title .hse{color:var(--gl)}
-.hero-sub{margin-top:1.5rem;font-size:1rem;font-weight:300;color:#8ca89a;max-width:420px}
-.hero-meta{margin-top:2.5rem;display:flex;flex-direction:column;gap:.45rem}
-.hero-meta-item{display:flex;align-items:center;gap:.7rem;font-size:.88rem;color:#c8d8c0}
-.dot{width:6px;height:6px;border-radius:50%;background:var(--gl);flex-shrink:0}
-.hero-cta{margin-top:2rem;display:flex;gap:.8rem;flex-wrap:wrap}
-.cta-btn{padding:.65rem 1.4rem;border-radius:7px;font-family:'Barlow',sans-serif;font-size:.82rem;font-weight:600;cursor:pointer;transition:all .2s;text-decoration:none;display:inline-flex;align-items:center;gap:.4rem;border:none}
-.cta-primary{background:var(--gm);color:#fff}
-.cta-primary:hover{background:var(--gl);transform:translateY(-1px)}
-.cta-outline{background:transparent;color:#c8d8c0;border:1px solid rgba(255,255,255,.2) !important}
-.cta-outline:hover{border-color:var(--gl) !important;color:#fff}
-.hero-stats{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
-.hstat{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-top:3px solid var(--gl);border-radius:10px;padding:1.4rem;cursor:default;transition:transform .2s,background .2s}
-.hstat:hover{background:rgba(60,190,98,.08);transform:translateY(-3px)}
-.hstat-num{font-family:'Barlow Condensed',sans-serif;font-size:2.5rem;font-weight:700;line-height:1;color:#fff}
-.hstat-num .u{font-size:1.2rem;color:var(--gl)}
-.hstat-lbl{margin-top:.35rem;font-size:.72rem;font-weight:500;text-transform:uppercase;letter-spacing:1px;color:#7a9e88}
-
-/* SECTION */
-section{padding:5rem 2.5rem}
-.container{max-width:1200px;margin:0 auto}
-.sec-header{display:flex;align-items:flex-start;gap:1.5rem;margin-bottom:3rem}
-.sec-num{font-family:'Barlow Condensed',sans-serif;font-size:3.8rem;font-weight:800;line-height:1;color:var(--border);user-select:none}
-.sec-eyebrow{font-size:.72rem;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--gm);margin-bottom:.3rem}
-.sec-title{font-family:'Barlow Condensed',sans-serif;font-size:2.1rem;font-weight:700;line-height:1.1;color:var(--slate)}
-hr.div{border:none;border-top:1px solid var(--border)}
-
-/* FADE IN */
-.fi{opacity:0;transform:translateY(22px);transition:opacity .65s ease,transform .65s ease}
-.fi.vis{opacity:1;transform:none}
-
-/* TOOLTIP */
-.tooltip{position:fixed;background:var(--slate);color:#fff;padding:.55rem .9rem;border-radius:7px;font-size:.78rem;line-height:1.4;max-width:240px;pointer-events:none;z-index:999;opacity:0;transition:opacity .2s;box-shadow:0 4px 16px rgba(0,0,0,.25)}
-
-/* SECTION DOTS */
-#si{position:fixed;right:1.5rem;top:50%;transform:translateY(-50%);z-index:150;display:flex;flex-direction:column;gap:.6rem}
-.si-dot{width:8px;height:8px;border-radius:50%;background:rgba(0,0,0,.15);cursor:pointer;transition:all .3s;position:relative}
-.si-dot.on{background:var(--gm);transform:scale(1.3)}
-.si-dot:hover::after{content:attr(data-label);position:absolute;right:16px;top:50%;transform:translateY(-50%);background:var(--slate);color:#fff;font-size:.7rem;white-space:nowrap;padding:.25rem .6rem;border-radius:4px;pointer-events:none}
-
-/* ACTIONS */
-#actions{background:var(--card)}
-.filter-bar{display:flex;gap:.4rem;margin-bottom:1.4rem;flex-wrap:wrap}
-.fbtn{padding:.32rem .85rem;border-radius:50px;font-size:.72rem;font-weight:700;letter-spacing:.8px;text-transform:uppercase;cursor:pointer;border:1px solid var(--border);background:transparent;color:var(--muted);transition:all .2s}
-.fbtn:hover,.fbtn.on{background:var(--gm);color:#fff;border-color:var(--gm)}
-.actions-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:1.2rem}
-.acard{border:1px solid var(--border);border-radius:10px;padding:1.4rem;position:relative;overflow:hidden;cursor:pointer;transition:transform .2s,box-shadow .2s}
-.acard:hover{transform:translateY(-4px);box-shadow:0 10px 28px rgba(26,110,53,.12)}
-.acard::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
-.acard.c::before{background:var(--gm)}.acard.w::before{background:var(--amber)}.acard.p::before{background:#3a5ca8}
-.acard-num{font-family:'Barlow Condensed',sans-serif;font-size:1.7rem;font-weight:800;color:var(--border);margin-bottom:.4rem}
-.acard-title{font-weight:600;font-size:.93rem;color:var(--slate);margin-bottom:.4rem}
-.acard-body{font-size:.82rem;color:var(--muted);line-height:1.5;max-height:0;overflow:hidden;transition:max-height .4s ease,opacity .3s;opacity:0}
-.acard.open .acard-body{max-height:200px;opacity:1}
-.badge{display:inline-block;margin-top:.7rem;font-size:.67rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:.18rem .65rem;border-radius:50px}
-.bd-c{background:#e6f4eb;color:var(--green)}.bd-w{background:#fff3e6;color:var(--amber)}.bd-p{background:#eef1fb;color:#3a5ca8}
-.acard-arrow{position:absolute;top:1rem;right:1rem;font-size:.75rem;transition:transform .3s;color:var(--muted)}
-.acard.open .acard-arrow{transform:rotate(180deg)}
-
-/* PERFORMANCE */
-#performance{background:var(--bg)}
-.kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem;margin-bottom:2rem}
-.kcard{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1.4rem;cursor:default;transition:transform .2s,box-shadow .2s;position:relative;overflow:hidden}
-.kcard:hover{transform:translateY(-3px);box-shadow:0 8px 22px rgba(0,0,0,.08)}
-.kcard::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px}
-.kcard.g::after{background:var(--gm)}.kcard.a::after{background:var(--amber)}.kcard.r::after{background:var(--red)}
-.klbl{font-size:.68rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
-.kval{font-family:'Barlow Condensed',sans-serif;font-size:2.7rem;font-weight:700;line-height:1;margin-top:.4rem}
-.kval.g{color:var(--gm)}.kval.a{color:var(--amber)}.kval.r{color:var(--red)}
-.ktgt{font-size:.75rem;color:var(--muted);margin-top:.3rem}
-.ktgt strong{color:var(--slate)}
-.ktrend{font-size:.7rem;font-weight:700;padding:.12rem .5rem;border-radius:50px;display:inline-block;margin-top:.35rem}
-.t-up{background:#e6f4eb;color:var(--green)}.t-dn{background:#fef2f2;color:var(--red)}.t-eq{background:#fff3e6;color:var(--amber)}
-.tab-bar{display:flex;gap:.35rem;margin-bottom:1.6rem;flex-wrap:wrap}
-.tab{padding:.38rem .95rem;border-radius:6px;font-size:.77rem;font-weight:600;letter-spacing:.4px;cursor:pointer;border:1px solid var(--border);background:var(--card);color:var(--muted);transition:all .2s}
-.tab:hover,.tab.on{background:var(--gm);color:#fff;border-color:var(--gm)}
-.charts-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.3rem}
-.ccrd{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1.5rem}
-.ctitle{font-family:'Barlow Condensed',sans-serif;font-size:.95rem;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--slate);margin-bottom:1rem}
-.cwrap{height:220px}
-.lag-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.2rem;margin-top:2rem}
-.lcrd{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1.4rem}
-.lhdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:.7rem}
-.ltitle{font-family:'Barlow Condensed',sans-serif;font-size:.88rem;font-weight:700;text-transform:uppercase;letter-spacing:.4px;color:var(--slate)}
-.lval{font-family:'Barlow Condensed',sans-serif;font-size:1.35rem;font-weight:700;color:var(--gm)}
-
-/* ANALYSIS */
-#analysis{background:var(--card)}
-.analysis-top{display:grid;grid-template-columns:290px 1fr;gap:2.5rem;align-items:start;margin-bottom:2.5rem}
-.inc-totals{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
-.inc-nc{border-radius:10px;padding:1.2rem;text-align:center;border:1px solid var(--border);cursor:pointer;transition:transform .2s,box-shadow .2s}
-.inc-nc:hover{transform:translateY(-3px);box-shadow:0 8px 20px rgba(0,0,0,.09)}
-.inc-big{font-family:'Barlow Condensed',sans-serif;font-size:2.8rem;font-weight:800;line-height:1}
-.inc-type{font-size:.7rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;margin-top:.25rem;color:var(--muted)}
-.causal-row{display:flex;align-items:center;gap:.8rem;padding:.5rem 0;border-bottom:1px solid var(--bg)}
-.causal-row:last-child{border:none}
-.causal-name{width:220px;font-size:.83rem;color:var(--muted);flex-shrink:0}
-.causal-track{flex:1;background:var(--bg);border-radius:4px;height:10px;overflow:hidden}
-.causal-fill{height:100%;border-radius:4px;width:0;transition:width 1.1s ease}
-.causal-pct{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.1rem;width:44px;text-align:right}
-.activity-wrap{margin-top:1.8rem;height:190px}
-.inc-explorer{margin-top:2rem}
-.ifbtn{padding:.32rem .85rem;border-radius:50px;font-size:.72rem;font-weight:700;letter-spacing:.8px;text-transform:uppercase;cursor:pointer;border:1px solid var(--border);background:transparent;color:var(--muted);transition:all .2s}
-.ifbtn:hover,.ifbtn.on{background:var(--slate);color:#fff;border-color:var(--slate)}
-.inc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1rem;margin-top:1rem}
-.inc-card{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:1.2rem;transition:all .2s}
-.inc-card:hover{box-shadow:0 6px 18px rgba(0,0,0,.09);transform:translateY(-2px)}
-.inc-card.hidden{display:none}
-.inc-tag{font-size:.65rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:.15rem .55rem;border-radius:50px;display:inline-block;margin-bottom:.6rem}
-.tg-dr{background:#fef2f2;color:var(--red)}.tg-mh{background:#fff3e6;color:var(--amber)}.tg-fb{background:#e6f4eb;color:var(--green)}.tg-eq{background:#eef1fb;color:#3a5ca8}
-.inc-date{font-size:.72rem;color:var(--muted);margin-bottom:.35rem}
-.inc-desc{font-size:.84rem;color:var(--txt);line-height:1.5}
-
-/* AUDITS */
-#audits{background:var(--bg)}
-.asrow{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem;margin-bottom:2rem}
-.ascrd{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1.3rem;text-align:center}
-.as-big{font-family:'Barlow Condensed',sans-serif;font-size:2.4rem;font-weight:700;color:var(--slate)}
-.as-lbl{font-size:.68rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-top:.2rem}
-.as-sub{font-size:.73rem;color:var(--gm);font-weight:600;margin-top:.2rem}
-.ael-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem}
-.ael{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1.3rem;cursor:pointer;transition:all .2s}
-.ael:hover{box-shadow:0 6px 18px rgba(0,0,0,.08);transform:translateY(-2px)}
-.ael-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:.55rem}
-.ael-name{font-weight:600;font-size:.9rem;color:var(--slate)}
-.ael-pct{font-family:'Barlow Condensed',sans-serif;font-size:1.5rem;font-weight:700;color:var(--gm)}
-.ael-track{background:var(--bg);border-radius:4px;height:8px;overflow:hidden}
-.ael-fill{height:100%;background:var(--gm);border-radius:4px;width:0;transition:width 1.2s ease}
-.ael-detail{font-size:.76rem;color:var(--muted);margin-top:.6rem;display:none;line-height:1.5}
-.ael.open .ael-detail{display:block}
-.ael-hint{font-size:.68rem;color:var(--muted);margin-top:.4rem;font-style:italic}
-
-/* PROCESS */
-#process{background:var(--card)}
-.proc-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem}
-.proc-grp-lbl{font-size:.7rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gm);margin-bottom:.8rem;display:flex;align-items:center;gap:.5rem}
-.proc-grp-lbl::after{content:'';flex:1;height:1px;background:var(--border)}
-.proc-item{display:flex;align-items:baseline;gap:.6rem;padding:.48rem .3rem;border-bottom:1px solid var(--bg);cursor:pointer;border-radius:4px;transition:background .15s}
-.proc-item:hover{background:var(--bg)}
-.proc-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0;margin-top:6px}
-.proc-name{flex:1;font-size:.86rem;color:var(--slate)}
-.proc-rev{font-size:.72rem;color:var(--muted);white-space:nowrap}
-.proc-new-item .proc-dot{background:var(--amber)}
-.proc-new-item .proc-rev{color:var(--amber);font-weight:600}
-
-/* COMPLIANCE */
-#compliance{background:var(--bg)}
-.comp-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.3rem}
-.ccard{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1.5rem}
-.ccard-title{font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--slate);margin-bottom:1rem;padding-bottom:.7rem;border-bottom:3px solid var(--gm)}
-.clist{list-style:none}
-.clist li{display:flex;align-items:flex-start;gap:.6rem;padding:.45rem 0;font-size:.87rem;border-bottom:1px solid var(--bg)}
-.clist li:last-child{border:none}
-.pen-item{display:flex;justify-content:space-between;align-items:center;padding:.5rem .3rem;border-bottom:1px solid var(--bg);cursor:pointer;border-radius:4px;transition:background .15s}
-.pen-item:hover{background:var(--bg)}
-.pen-item:last-of-type{border:none}
-.pen-loc{font-weight:600;font-size:.87rem;color:var(--slate)}
-.pen-amt{font-family:'Barlow Condensed',sans-serif;font-weight:700;color:var(--red);font-size:1.05rem}
-
-/* PRESENT */
-#povl{position:fixed;inset:0;background:#000;z-index:1000;display:none;flex-direction:column;align-items:center;justify-content:center}
-#povl.active{display:flex}
-#pslide{width:100%;max-width:1100px;padding:3rem;text-align:center;color:#fff;animation:slideIn .35s ease}
-@keyframes slideIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
-#pnum{font-family:'Barlow Condensed',sans-serif;font-size:.8rem;letter-spacing:3px;color:rgba(255,255,255,.3);margin-bottom:.5rem}
-#ptitle{font-family:'Barlow Condensed',sans-serif;font-size:clamp(2.2rem,5vw,3.8rem);font-weight:800;color:var(--gl);line-height:1.1;margin-bottom:1rem}
-#pbody{font-size:1rem;color:rgba(255,255,255,.72);max-width:720px;margin:0 auto;line-height:1.75}
-#pkpis{display:flex;gap:1.8rem;justify-content:center;margin-top:2rem;flex-wrap:wrap}
-.pk{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-top:3px solid var(--gl);border-radius:10px;padding:1.3rem 1.8rem;min-width:150px}
-.pk-v{font-family:'Barlow Condensed',sans-serif;font-size:2.7rem;font-weight:700;color:#fff}
-.pk-l{font-size:.68rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.42);margin-top:.2rem}
-.pnav{position:fixed;bottom:2rem;left:0;right:0;display:flex;align-items:center;justify-content:center;gap:1.5rem}
-.pnav-btn{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;width:42px;height:42px;border-radius:50%;font-size:1.1rem;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center}
-.pnav-btn:hover{background:var(--gm);border-color:var(--gm)}
-#pclose{position:fixed;top:1.5rem;right:2rem;background:transparent;border:1px solid rgba(255,255,255,.2);color:#fff;font-size:1.1rem;width:36px;height:36px;border-radius:50%;cursor:pointer;transition:all .2s}
-#pclose:hover{background:var(--red);border-color:var(--red)}
-.pdots{display:flex;gap:.45rem}
-.pdot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.22);cursor:pointer;transition:all .25s}
-.pdot.on{background:var(--gl);width:22px;border-radius:4px}
-
-/* FOOTER */
-footer{background:var(--slate);padding:3rem;text-align:center;color:#5a7a66;font-size:.82rem}
-footer strong{color:var(--gl)}
-
-@media(max-width:900px){
-  nav{padding:0 1rem}.nav-links{display:none}
-  section{padding:3rem 1rem}.hero{padding:3rem 1rem}
-  .hero-grid,.analysis-top,.charts-grid,.lag-grid,.proc-grid,.comp-grid,.ael-grid{grid-template-columns:1fr}
-  .kpi-row,.asrow{grid-template-columns:1fr 1fr}
-  #si{display:none}
+/* ══════════════════════════════════════
+   RESET & VARS
+══════════════════════════════════════ */
+:root{
+  --g:#1e8a3e; --gm:#27ae60; --gl:#2ecc71;
+  --r:#c0392b; --rl:#e74c3c;
+  --a:#e67e22; --al:#f39c12;
+  --sl:#1a252f; --slm:#2c3e50;
+  --bg:#0d1117; --card:#161b22;
+  --border:rgba(255,255,255,.08);
+  --txt:#e6edf3; --muted:#8b949e;
+  --yellow:#f1c40f;
 }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);font-family:'Barlow',sans-serif;color:var(--txt)}
+
+/* ══════════════════════════════════════
+   SLIDE ENGINE
+══════════════════════════════════════ */
+#deck{width:100vw;height:100vh;position:relative;overflow:hidden}
+.slide{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;
+  opacity:0;pointer-events:none;
+  transition:opacity .55s ease,transform .55s ease;
+  transform:translateX(60px);
+  overflow:hidden;
+}
+.slide.active{opacity:1;pointer-events:all;transform:translateX(0)}
+.slide.exit-left{opacity:0;transform:translateX(-60px)}
+
+/* ══════════════════════════════════════
+   NAV BAR
+══════════════════════════════════════ */
+#nav{
+  position:fixed;bottom:0;left:0;right:0;z-index:500;
+  background:rgba(13,17,23,.92);backdrop-filter:blur(12px);
+  border-top:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:.6rem 2rem;gap:1rem;
+}
+#nav-left{display:flex;align-items:center;gap:.8rem}
+#nav-right{display:flex;align-items:center;gap:.8rem}
+.nav-btn{
+  background:rgba(255,255,255,.06);border:1px solid var(--border);
+  color:var(--txt);padding:.4rem 1rem;border-radius:6px;
+  font-family:'Barlow',sans-serif;font-size:.8rem;font-weight:600;
+  cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:.4rem;
+}
+.nav-btn:hover{background:var(--gm);border-color:var(--gm)}
+.nav-btn:disabled{opacity:.3;cursor:default}
+#slide-counter{font-family:'Barlow Condensed',sans-serif;font-size:1rem;color:var(--muted);font-weight:600;min-width:60px;text-align:center}
+#dots-wrap{display:flex;gap:.35rem;align-items:center;flex:1;justify-content:center;flex-wrap:wrap}
+.ndot{
+  width:7px;height:7px;border-radius:50%;
+  background:rgba(255,255,255,.2);cursor:pointer;
+  transition:all .25s;flex-shrink:0;
+}
+.ndot.on{background:var(--gl);width:20px;border-radius:4px}
+.ndot:hover{background:var(--muted)}
+#slide-title-bar{font-size:.72rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--muted)}
+
+/* PROGRESS */
+#prog{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--gm),var(--gl));z-index:600;transition:width .4s ease}
+
+/* ══════════════════════════════════════
+   SLIDE COMMON LAYOUTS
+══════════════════════════════════════ */
+.slide-inner{flex:1;display:flex;flex-direction:column;padding:2.5rem 3.5rem 1rem;max-height:calc(100vh - 58px);overflow:auto}
+.slide-inner::-webkit-scrollbar{width:4px}
+.slide-inner::-webkit-scrollbar-thumb{background:rgba(255,255,255,.1);border-radius:4px}
+
+.s-eyebrow{font-size:.68rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--gl);margin-bottom:.5rem}
+.s-title{font-family:'Barlow Condensed',sans-serif;font-size:clamp(1.8rem,3.5vw,3rem);font-weight:800;line-height:1.05;color:#fff;margin-bottom:1.5rem}
+.s-title em{color:var(--gl);font-style:normal}
+
+/* slide top strip */
+.slide-strip{height:4px;background:linear-gradient(90deg,var(--g),var(--gl),var(--g));flex-shrink:0}
+.slide-strip.red{background:linear-gradient(90deg,var(--r),var(--rl),var(--r))}
+.slide-strip.amber{background:linear-gradient(90deg,var(--a),var(--al),var(--a))}
+
+/* STS watermark brand */
+.slide-brand{position:absolute;top:1.2rem;right:2rem;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.6rem;letter-spacing:2px;color:var(--gl);opacity:.7;z-index:10}
+
+/* ══════════════════════════════════════
+   SLIDE 1 – TITLE / HERO
+══════════════════════════════════════ */
+#s1{background:radial-gradient(ellipse 80% 80% at 50% 50%, #0a1f0f 0%, #020a04 100%)}
+#s1 .road{position:absolute;bottom:0;left:0;right:0;height:160px;overflow:hidden}
+#s1 .road-surface{position:absolute;bottom:0;left:0;right:0;height:120px;background:linear-gradient(180deg,#1a1a1a,#111)}
+#s1 .road-line{position:absolute;bottom:52px;left:-100%;width:200%;height:6px;background:repeating-linear-gradient(90deg,transparent 0,transparent 60px,#f1c40f 60px,#f1c40f 120px);animation:road-scroll 1.5s linear infinite}
+@keyframes road-scroll{from{transform:translateX(0)}to{transform:translateX(120px)}}
+#s1 .road-shoulder{position:absolute;bottom:120px;left:0;right:0;height:4px;background:var(--gl);opacity:.5}
+.hero-content{position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;flex:1;padding:2rem 4rem 180px}
+.hero-left{}
+.hero-badge{display:inline-flex;align-items:center;gap:.5rem;background:rgba(46,204,113,.1);border:1px solid rgba(46,204,113,.3);padding:.3rem .8rem;border-radius:50px;font-size:.7rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gl);margin-bottom:1.5rem}
+.hero-badge::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--gl);animation:pulse 1.5s ease infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(46,204,113,.4)}50%{box-shadow:0 0 0 8px rgba(46,204,113,0)}}
+.hero-h1{font-family:'Barlow Condensed',sans-serif;font-size:clamp(3.5rem,7vw,6.5rem);font-weight:900;line-height:.95;letter-spacing:-2px;color:#fff}
+.hero-h1 .hse{color:var(--gl);display:block}
+.hero-sub{margin-top:1.2rem;font-size:1.05rem;font-weight:300;color:#8fa899;max-width:460px;line-height:1.6}
+.hero-meta{margin-top:2rem;display:flex;flex-direction:column;gap:.4rem}
+.hero-meta-row{display:flex;align-items:center;gap:.6rem;font-size:.88rem;color:#6a8870}
+.hero-meta-row::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--gl);flex-shrink:0}
+.hero-kpis{display:grid;grid-template-columns:1fr 1fr;gap:1rem;min-width:340px}
+.hkpi{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-left:3px solid var(--gl);border-radius:8px;padding:1.2rem 1.4rem}
+.hkpi-v{font-family:'Barlow Condensed',sans-serif;font-size:2.4rem;font-weight:700;color:#fff;line-height:1}
+.hkpi-v .u{font-size:1.1rem;color:var(--gl)}
+.hkpi-l{font-size:.65rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-top:.25rem}
+
+/* ══════════════════════════════════════
+   TRAFFIC LIGHT COMPONENT
+══════════════════════════════════════ */
+.traffic-light{
+  display:flex;flex-direction:column;align-items:center;gap:0;
+  background:#1a1a1a;border:3px solid #333;border-radius:16px;
+  padding:10px 12px;width:64px;
+  box-shadow:0 8px 24px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.05);
+}
+.tl-light{
+  width:36px;height:36px;border-radius:50%;margin:5px 0;
+  background:#111;border:2px solid #2a2a2a;
+  transition:all .4s ease;position:relative;
+}
+.tl-light.on-r{background:radial-gradient(circle at 35% 35%,#ff6b6b,#c0392b);box-shadow:0 0 20px rgba(192,57,43,.8),0 0 40px rgba(192,57,43,.4)}
+.tl-light.on-a{background:radial-gradient(circle at 35% 35%,#ffd06b,#e67e22);box-shadow:0 0 20px rgba(230,126,34,.8),0 0 40px rgba(230,126,34,.4)}
+.tl-light.on-g{background:radial-gradient(circle at 35% 35%,#6bffa0,#27ae60);box-shadow:0 0 20px rgba(39,174,96,.8),0 0 40px rgba(39,174,96,.4)}
+.tl-post{width:6px;height:40px;background:#333;margin:0 auto}
+.tl-base{width:50px;height:8px;background:#333;border-radius:4px}
+.tl-label{font-size:.6rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-top:.3rem;text-align:center}
+
+/* traffic light grid for KPI severity */
+.tl-kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;align-items:end;margin-top:1rem}
+.tl-kpi-item{display:flex;flex-direction:column;align-items:center;gap:.6rem}
+.tl-kpi-val{font-family:'Barlow Condensed',sans-serif;font-size:2rem;font-weight:800;color:#fff}
+.tl-kpi-name{font-size:.7rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--muted);text-align:center;line-height:1.3}
+.tl-kpi-target{font-size:.65rem;color:var(--muted)}
+
+/* ══════════════════════════════════════
+   SAFETY PYRAMID (SVG-based animated)
+══════════════════════════════════════ */
+.pyramid-wrap{display:flex;gap:3rem;align-items:center;flex:1}
+.pyramid-svg-wrap{flex-shrink:0}
+.pyr-layer{cursor:pointer;transition:filter .2s}
+.pyr-layer:hover{filter:brightness(1.15)}
+
+/* ══════════════════════════════════════
+   CASE STUDY CARDS
+══════════════════════════════════════ */
+.case-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem;flex:1}
+.case-card{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:10px;padding:1.2rem;
+  position:relative;overflow:hidden;cursor:pointer;
+  transition:all .25s;
+}
+.case-card:hover{transform:translateY(-3px);box-shadow:0 12px 32px rgba(0,0,0,.4);border-color:rgba(255,255,255,.15)}
+.case-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.case-card.sev-fatal::before{background:var(--rl)}
+.case-card.sev-lti::before{background:var(--al)}
+.case-card.sev-nm::before{background:var(--gl)}
+.case-card.sev-rwc::before{background:#9b59b6}
+.case-tag{display:inline-flex;align-items:center;gap:.4rem;font-size:.62rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:.18rem .55rem;border-radius:50px;margin-bottom:.6rem}
+.tag-dr{background:rgba(192,57,43,.15);color:#e74c3c;border:1px solid rgba(231,76,60,.2)}
+.tag-mh{background:rgba(230,126,34,.15);color:#f39c12;border:1px solid rgba(243,156,18,.2)}
+.tag-fb{background:rgba(39,174,96,.15);color:#2ecc71;border:1px solid rgba(46,204,113,.2)}
+.tag-eq{background:rgba(52,152,219,.15);color:#3498db;border:1px solid rgba(52,152,219,.2)}
+.case-sev{display:inline-flex;align-items:center;gap:.3rem;font-size:.62rem;font-weight:700;letter-spacing:.8px;text-transform:uppercase;padding:.15rem .5rem;border-radius:50px;margin-left:.4rem}
+.sev-r{background:rgba(192,57,43,.15);color:#e74c3c}
+.sev-a{background:rgba(230,126,34,.15);color:#f39c12}
+.sev-g{background:rgba(39,174,96,.15);color:#2ecc71}
+.case-date{font-size:.72rem;color:var(--muted);margin-bottom:.5rem;display:flex;align-items:center;gap:.4rem}
+.case-desc{font-size:.84rem;color:var(--txt);line-height:1.55}
+.case-lesson{
+  margin-top:.7rem;padding-top:.7rem;border-top:1px solid var(--border);
+  font-size:.78rem;color:var(--gl);display:flex;gap:.4rem;align-items:flex-start;
+  max-height:0;overflow:hidden;transition:max-height .4s ease,opacity .3s;opacity:0;
+}
+.case-card.open .case-lesson{max-height:100px;opacity:1}
+.case-lesson::before{content:'💡';flex-shrink:0}
+
+/* ══════════════════════════════════════
+   ANIMATED TRAFFIC LIGHT — SEVERITY SCALE
+══════════════════════════════════════ */
+.severity-row{display:flex;gap:2rem;align-items:stretch;flex:1}
+.sev-item{
+  flex:1;background:var(--card);border:1px solid var(--border);
+  border-radius:12px;padding:1.5rem;display:flex;flex-direction:column;
+  align-items:center;gap:.8rem;transition:all .3s;cursor:pointer;
+  position:relative;overflow:hidden;
+}
+.sev-item:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(0,0,0,.5)}
+.sev-item.fatal{border-color:rgba(192,57,43,.3)}
+.sev-item.fatal:hover{border-color:rgba(231,76,60,.6);box-shadow:0 16px 40px rgba(192,57,43,.2)}
+.sev-item.lti{border-color:rgba(230,126,34,.3)}
+.sev-item.lti:hover{border-color:rgba(243,156,18,.6);box-shadow:0 16px 40px rgba(230,126,34,.2)}
+.sev-item.rwc{border-color:rgba(155,89,182,.3)}
+.sev-item.rwc:hover{border-color:rgba(155,89,182,.6);box-shadow:0 16px 40px rgba(155,89,182,.2)}
+.sev-item.mtc{border-color:rgba(52,152,219,.3)}
+.sev-item.mtc:hover{border-color:rgba(52,152,219,.6);box-shadow:0 16px 40px rgba(52,152,219,.2)}
+.sev-item.nm{border-color:rgba(39,174,96,.3)}
+.sev-item.nm:hover{border-color:rgba(46,204,113,.6);box-shadow:0 16px 40px rgba(39,174,96,.2)}
+.sev-big{font-family:'Barlow Condensed',sans-serif;font-size:4rem;font-weight:900;line-height:1}
+.sev-name{font-size:.72rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);text-align:center}
+.sev-sub{font-size:.75rem;color:var(--muted);text-align:center;line-height:1.4}
+.sev-glow{position:absolute;inset:0;opacity:0;transition:opacity .3s;border-radius:12px}
+.sev-item.fatal:hover .sev-glow{background:radial-gradient(circle at 50% 0%,rgba(231,76,60,.08),transparent 60%);opacity:1}
+.sev-item.lti:hover .sev-glow{background:radial-gradient(circle at 50% 0%,rgba(243,156,18,.08),transparent 60%);opacity:1}
+
+/* ══════════════════════════════════════
+   CAUSAL ANALYSIS – VISUAL CARDS
+══════════════════════════════════════ */
+.causal-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;flex:1}
+.causal-card{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:12px;padding:1.5rem;display:flex;flex-direction:column;gap:.8rem;
+  position:relative;overflow:hidden;
+}
+.causal-pct-bubble{
+  width:72px;height:72px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Barlow Condensed',sans-serif;font-size:1.6rem;font-weight:900;
+  color:#fff;margin:0 auto;flex-shrink:0;
+}
+.causal-card-title{font-weight:700;font-size:1rem;color:#fff;text-align:center}
+.causal-actions{list-style:none;display:flex;flex-direction:column;gap:.4rem;margin-top:.3rem}
+.causal-actions li{display:flex;align-items:flex-start;gap:.5rem;font-size:.8rem;color:var(--muted)}
+.causal-actions li::before{content:'→';color:var(--gl);flex-shrink:0;font-weight:700}
+.causal-arc{position:absolute;bottom:-30px;right:-30px;width:100px;height:100px;border-radius:50%;opacity:.06}
+
+/* ══════════════════════════════════════
+   ROAD ANIMATION SCENE (incidents)
+══════════════════════════════════════ */
+.road-scene{
+  position:relative;height:90px;margin-bottom:1rem;
+  background:#1a1a1a;border-radius:10px;overflow:hidden;
+  flex-shrink:0;
+}
+.road-scene .lane-line{
+  position:absolute;top:50%;left:-100%;width:200%;
+  height:4px;margin-top:-2px;
+  background:repeating-linear-gradient(90deg,transparent 0,transparent 40px,rgba(255,193,7,.5) 40px,rgba(255,193,7,.5) 80px);
+  animation:road-scroll 1s linear infinite;
+}
+.road-scene .car{
+  position:absolute;top:50%;transform:translateY(-50%);
+  font-size:1.8rem;animation:drive 8s linear infinite;
+}
+@keyframes drive{from{left:-60px}to{left:110%}}
+.road-scene .warning{
+  position:absolute;top:50%;transform:translateY(-50%);
+  font-size:1.4rem;animation:warning-float 2s ease-in-out infinite;
+}
+@keyframes warning-float{0%,100%{transform:translateY(-55%)}50%{transform:translateY(-65%)}}
+
+/* ══════════════════════════════════════
+   CHARTS SLIDE
+══════════════════════════════════════ */
+.charts-2col{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;flex:1}
+.chart-box{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1.2rem;display:flex;flex-direction:column}
+.chart-lbl{font-size:.7rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:.8rem}
+.chart-wrap{flex:1;min-height:0;position:relative}
+
+/* 4-up BU grid */
+.charts-4{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;flex:1}
+
+/* ══════════════════════════════════════
+   KPI TRAFFIC LIGHT SLIDE
+══════════════════════════════════════ */
+.kpi-tl-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;flex:1;align-items:start}
+.kpi-tl-card{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:12px;padding:1.5rem;display:flex;flex-direction:column;
+  align-items:center;gap:1rem;
+}
+.kpi-tl-name{font-size:.7rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);text-align:center}
+.kpi-tl-val{font-family:'Barlow Condensed',sans-serif;font-size:3rem;font-weight:800;color:#fff;line-height:1}
+.kpi-tl-tgt{font-size:.72rem;color:var(--muted)}
+.kpi-tl-tgt strong{color:var(--txt)}
+.kpi-verdict{font-size:.7rem;font-weight:700;letter-spacing:.8px;text-transform:uppercase;padding:.2rem .7rem;border-radius:50px}
+.vd-g{background:rgba(39,174,96,.15);color:var(--gl)}
+.vd-a{background:rgba(230,126,34,.15);color:var(--al)}
+.vd-r{background:rgba(192,57,43,.15);color:var(--rl)}
+
+/* ══════════════════════════════════════
+   AUDIT SCORE BARS
+══════════════════════════════════════ */
+.audit-bars{display:flex;flex-direction:column;gap:1rem;flex:1;justify-content:center}
+.abar-row{display:flex;align-items:center;gap:1rem}
+.abar-name{width:210px;font-size:.85rem;color:var(--txt);flex-shrink:0}
+.abar-track{flex:1;height:14px;background:rgba(255,255,255,.06);border-radius:7px;overflow:hidden}
+.abar-fill{height:100%;border-radius:7px;width:0;transition:width 1.2s ease;background:linear-gradient(90deg,var(--g),var(--gl))}
+.abar-pct{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.1rem;color:var(--gl);width:44px;text-align:right}
+
+/* ══════════════════════════════════════
+   ACTIONS STATUS (traffic light rows)
+══════════════════════════════════════ */
+.action-rows{display:flex;flex-direction:column;gap:.7rem;flex:1;justify-content:center}
+.action-row{
+  display:flex;align-items:center;gap:1rem;
+  background:var(--card);border:1px solid var(--border);
+  border-radius:8px;padding:.8rem 1.2rem;cursor:pointer;
+  transition:all .2s;
+}
+.action-row:hover{border-color:rgba(255,255,255,.15);transform:translateX(4px)}
+.action-tl{width:14px;height:14px;border-radius:50%;flex-shrink:0}
+.action-tl.g{background:var(--gl);box-shadow:0 0 8px rgba(46,204,113,.6)}
+.action-tl.a{background:var(--al);box-shadow:0 0 8px rgba(243,156,18,.6)}
+.action-tl.r{background:var(--rl);box-shadow:0 0 8px rgba(231,76,60,.6)}
+.action-num-lbl{font-family:'Barlow Condensed',sans-serif;font-size:.85rem;font-weight:700;color:var(--muted);width:26px;flex-shrink:0}
+.action-title{font-size:.9rem;font-weight:600;color:var(--txt);flex:1}
+.action-badge{font-size:.65rem;font-weight:700;letter-spacing:.8px;text-transform:uppercase;padding:.15rem .55rem;border-radius:50px;flex-shrink:0}
+.ab-g{background:rgba(39,174,96,.12);color:var(--gl)}
+.ab-a{background:rgba(230,126,34,.12);color:var(--al)}
+.ab-b{background:rgba(52,152,219,.12);color:#3498db}
+.action-detail-box{
+  display:none;padding:.7rem 1rem;margin:.3rem 0 0 2.5rem;
+  background:rgba(255,255,255,.03);border-left:2px solid var(--gl);
+  border-radius:0 6px 6px 0;font-size:.8rem;color:var(--muted);line-height:1.5;
+}
+.action-row.open+.action-detail-box{display:block}
+
+/* ══════════════════════════════════════
+   PROCESS UPDATES
+══════════════════════════════════════ */
+.proc-2col{display:grid;grid-template-columns:1fr 1fr;gap:2rem;flex:1}
+.proc-grp-title{font-size:.68rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gl);margin-bottom:.7rem;display:flex;align-items:center;gap:.5rem}
+.proc-grp-title::after{content:'';flex:1;height:1px;background:var(--border)}
+.proc-row{display:flex;align-items:baseline;gap:.7rem;padding:.4rem .3rem;border-bottom:1px solid rgba(255,255,255,.04);font-size:.83rem}
+.proc-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0;margin-top:6px}
+.proc-name{flex:1;color:var(--txt)}
+.proc-rev{font-size:.68rem;color:var(--muted);white-space:nowrap}
+.proc-new .proc-dot{background:var(--al)}.proc-new .proc-rev{color:var(--al);font-weight:700}
+
+/* ══════════════════════════════════════
+   COMPLIANCE SLIDE
+══════════════════════════════════════ */
+.comp-3col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.2rem;flex:1}
+.comp-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1.3rem}
+.comp-title{font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:.8rem;padding-bottom:.6rem;border-bottom:2px solid var(--gl);color:#fff}
+.comp-list{list-style:none;display:flex;flex-direction:column;gap:.5rem}
+.comp-list li{display:flex;gap:.5rem;font-size:.83rem;color:var(--muted);align-items:flex-start}
+.pen-row{display:flex;justify-content:space-between;align-items:center;padding:.4rem 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:.85rem}
+.pen-loc{font-weight:600;color:var(--txt)}
+.pen-amt{font-family:'Barlow Condensed',sans-serif;font-weight:700;color:var(--rl);font-size:1rem}
+.pen-total{margin-top:.6rem;padding-top:.6rem;border-top:1px solid rgba(255,255,255,.1);font-size:.82rem;color:var(--muted)}
+.pen-total strong{color:var(--rl)}
+
+/* ══════════════════════════════════════
+   THANK YOU / END SLIDE
+══════════════════════════════════════ */
+#s-end{background:radial-gradient(ellipse 70% 70% at 50% 50%,#0a1f0f 0%,#020a04 100%)}
+.end-inner{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2rem;padding:2rem}
+.end-logo{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:5rem;letter-spacing:4px;color:var(--gl);line-height:1}
+.end-tagline{font-size:1.1rem;color:var(--muted);letter-spacing:2px;text-align:center}
+.end-motto{display:flex;gap:2rem;margin-top:1rem}
+.end-motto span{font-size:.8rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.25);display:flex;align-items:center;gap:.5rem}
+.end-motto span::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--gl)}
+
+/* ══════════════════════════════════════
+   KEYFRAME ANIMATIONS
+══════════════════════════════════════ */
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+@keyframes countUp{from{opacity:0;transform:scale(.7)}to{opacity:1;transform:scale(1)}}
+.slide.active .animate-up{animation:fadeUp .6s ease both}
+.slide.active .animate-up:nth-child(1){animation-delay:.1s}
+.slide.active .animate-up:nth-child(2){animation-delay:.2s}
+.slide.active .animate-up:nth-child(3){animation-delay:.3s}
+.slide.active .animate-up:nth-child(4){animation-delay:.4s}
+.slide.active .animate-up:nth-child(5){animation-delay:.5s}
+.slide.active .animate-count{animation:countUp .5s cubic-bezier(.34,1.56,.64,1) both}
+.slide.active .animate-count:nth-child(1){animation-delay:.15s}
+.slide.active .animate-count:nth-child(2){animation-delay:.3s}
+.slide.active .animate-count:nth-child(3){animation-delay:.45s}
+.slide.active .animate-count:nth-child(4){animation-delay:.6s}
+.slide.active .animate-count:nth-child(5){animation-delay:.75s}
+
+/* flashing warning lights */
+@keyframes flash-r{0%,100%{opacity:1}50%{opacity:.2}}
+.flash-r{animation:flash-r 1s ease-in-out infinite}
 </style>
 </head>
 <body>
 
-<div id="progress-bar"></div>
-<div class="tooltip" id="tip"></div>
+<div id="prog"></div>
 
-<!-- SECTION DOTS -->
-<div id="si">
-  <div class="si-dot on" data-target="home" data-label="Overview"></div>
-  <div class="si-dot" data-target="actions" data-label="Actions"></div>
-  <div class="si-dot" data-target="performance" data-label="Performance"></div>
-  <div class="si-dot" data-target="analysis" data-label="Analysis"></div>
-  <div class="si-dot" data-target="audits" data-label="Audits"></div>
-  <div class="si-dot" data-target="process" data-label="Process Updates"></div>
-  <div class="si-dot" data-target="compliance" data-label="Compliance"></div>
-</div>
+<!-- ═══════════════════════════════════
+     SLIDE DECK
+═══════════════════════════════════ -->
+<div id="deck">
 
-<!-- PRESENT OVERLAY -->
-<div id="povl">
-  <button id="pclose" onclick="closePresent()">✕</button>
-  <div id="pslide">
-    <div id="pnum"></div>
-    <div id="ptitle"></div>
-    <div id="pbody"></div>
-    <div id="pkpis"></div>
-  </div>
-  <div class="pnav">
-    <button class="pnav-btn" onclick="pNav(-1)">◀</button>
-    <div class="pdots" id="pdots"></div>
-    <button class="pnav-btn" onclick="pNav(1)">▶</button>
-  </div>
-</div>
-
-<!-- NAV -->
-<nav>
-  <div class="nav-brand"><span>STS</span> · HSE Review <div class="nav-pill">2026</div></div>
-  <div class="nav-links">
-    <a href="#home" data-sec="home">Overview</a>
-    <a href="#actions" data-sec="actions">Actions</a>
-    <a href="#performance" data-sec="performance">Performance</a>
-    <a href="#analysis" data-sec="analysis">Analysis</a>
-    <a href="#audits" data-sec="audits">Audits</a>
-    <a href="#process" data-sec="process">Process</a>
-    <a href="#compliance" data-sec="compliance">Compliance</a>
-  </div>
-  <button class="btn-present" onclick="openPresent()">▶ Present Mode</button>
-</nav>
-
-<!-- HERO -->
-<section class="hero" id="home">
-  <div id="particles"></div>
-  <div class="hero-grid">
-    <div>
-      <div class="hero-eyebrow">Special Technical Services</div>
-      <h1 class="hero-title"><span class="hse">HSE</span><br>Management<br>Review</h1>
-      <p class="hero-sub">Annual safety performance, incident analysis, and forward strategy for STS Group operations.</p>
+<!-- ── S1: TITLE ── -->
+<div class="slide active" id="s1" data-title="HSE Management Review 2026">
+  <div class="slide-brand">STS</div>
+  <div class="hero-content">
+    <div class="hero-left">
+      <div class="hero-badge">Annual Review · 2026</div>
+      <h1 class="hero-h1">
+        <span class="hse">HSE</span>
+        Management<br>Review
+      </h1>
+      <p class="hero-sub">Annual safety performance, incident analysis and forward strategy for STS Group operations.</p>
       <div class="hero-meta">
-        <div class="hero-meta-item"><span class="dot"></span>STS Head Office, Muscat</div>
-        <div class="hero-meta-item"><span class="dot"></span>16th March 2026</div>
-        <div class="hero-meta-item"><span class="dot"></span>Presented to Senior Management</div>
-      </div>
-      <div class="hero-cta">
-        <a href="#performance" class="cta-btn cta-primary">📊 View Performance</a>
-        <button class="cta-btn cta-outline" onclick="openPresent()">▶ Present Mode</button>
+        <div class="hero-meta-row">STS Head Office, Muscat</div>
+        <div class="hero-meta-row">16th March 2026</div>
+        <div class="hero-meta-row">Presented to Senior Management</div>
       </div>
     </div>
-    <div class="hero-stats">
-      <div class="hstat" data-tip="Group man-hours worked in 2025 across all business units"><div class="hstat-num"><span class="cnt" data-to="47">0</span><span class="u">M</span></div><div class="hstat-lbl">Man-hours Worked (2025)</div></div>
-      <div class="hstat" data-tip="Total kilometres driven by STS fleet in 2025"><div class="hstat-num"><span class="cnt" data-to="44">0</span><span class="u">M</span></div><div class="hstat-lbl">Km Driven (2025)</div></div>
-      <div class="hstat" data-tip="Lost Time Injury Frequency — actual 2025 vs 0.13 target. Well below target."><div class="hstat-num">0.04</div><div class="hstat-lbl">LTIF 2025 Actual</div></div>
-      <div class="hstat" data-tip="Near-misses reported in 2025 — indicator of proactive safety reporting culture."><div class="hstat-num"><span class="cnt" data-to="262">0</span></div><div class="hstat-lbl">Near Misses Reported</div></div>
+    <div class="hero-kpis">
+      <div class="hkpi animate-count"><div class="hkpi-v"><span id="cnt1">0</span><span class="u">M</span></div><div class="hkpi-l">Man-hours 2025</div></div>
+      <div class="hkpi animate-count"><div class="hkpi-v"><span id="cnt2">0</span><span class="u">M</span></div><div class="hkpi-l">Km Driven 2025</div></div>
+      <div class="hkpi animate-count"><div class="hkpi-v">0.04</div><div class="hkpi-l">LTIF 2025</div></div>
+      <div class="hkpi animate-count"><div class="hkpi-v"><span id="cnt3">0</span></div><div class="hkpi-l">Near Misses</div></div>
     </div>
   </div>
-</section>
-
-<hr class="div">
-
-<!-- 01 ACTIONS -->
-<section id="actions">
-  <div class="container">
-    <div class="sec-header fi">
-      <div class="sec-num">01</div>
-      <div>
-        <div class="sec-eyebrow">Last Year's MR</div>
-        <h2 class="sec-title">Previous Actions Status</h2>
-      </div>
-    </div>
-    <div class="filter-bar fi" id="actionFilters">
-      <button class="fbtn on" data-f="all">All (8)</button>
-      <button class="fbtn" data-f="c">✓ Completed</button>
-      <button class="fbtn" data-f="w">⟳ In Progress</button>
-      <button class="fbtn" data-f="p">◷ Partially Done</button>
-    </div>
-    <div class="actions-grid fi" id="actionsGrid"></div>
+  <div class="road">
+    <div class="road-shoulder"></div>
+    <div class="road-surface"></div>
+    <div class="road-line"></div>
   </div>
-</section>
+</div>
 
-<hr class="div">
-
-<!-- 02 PERFORMANCE -->
-<section id="performance">
-  <div class="container">
-    <div class="sec-header fi">
-      <div class="sec-num">02</div>
-      <div>
-        <div class="sec-eyebrow">Leading &amp; Lagging Indicators</div>
-        <h2 class="sec-title">Group Performance</h2>
+<!-- ── S2: AGENDA ── -->
+<div class="slide" id="s2" data-title="Agenda">
+  <div class="slide-strip"></div>
+  <div class="slide-brand">STS</div>
+  <div class="slide-inner">
+    <div class="s-eyebrow">Today's Session</div>
+    <div class="s-title">Agenda</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;flex:1;align-content:start">
+      <div class="animate-up" style="background:var(--card);border:1px solid var(--border);border-left:3px solid var(--gl);border-radius:8px;padding:1rem 1.2rem;display:flex;align-items:center;gap:1rem">
+        <span style="font-family:'Barlow Condensed';font-size:2rem;font-weight:800;color:var(--border)">01</span>
+        <div><div style="font-weight:700;color:#fff;font-size:.95rem">Previous MR Actions</div><div style="font-size:.75rem;color:var(--muted)">Last year's action status update</div></div>
       </div>
-    </div>
-    <div class="kpi-row fi">
-      <div class="kcard g" data-tip="LTIF 2025 = 0.04 — significantly below the 0.13 target. Strong improvement."><div class="klbl">LTIF</div><div class="kval g">0.04</div><div class="ktgt">Target 2026: <strong>0.13</strong></div><span class="ktrend t-up">↓ Below Target ✓</span></div>
-      <div class="kcard a" data-tip="Total Recordable Case Frequency 2025 = 0.28 vs 0.45 target. Good performance."><div class="klbl">TRCF</div><div class="kval g">0.28</div><div class="ktgt">Target 2026: <strong>0.45</strong></div><span class="ktrend t-up">↓ Below Target ✓</span></div>
-      <div class="kcard a" data-tip="Motor Vehicle Incident Rate 2025. Projects BU at 0.97 is highest — needs attention."><div class="klbl">MVIR</div><div class="kval a">0.43</div><div class="ktgt">Target 2026: <strong>0.46</strong></div><span class="ktrend t-eq">→ Near Target</span></div>
-      <div class="kcard r" data-tip="Non-Accidental Deaths increased from 3 (2024) to 5 (2025). Priority health focus required."><div class="klbl">Non-Accidental Deaths</div><div class="kval r">5</div><div class="ktgt">2024: <strong>3</strong> | 2023: <strong>2</strong></div><span class="ktrend t-dn">↑ Increased</span></div>
-    </div>
-    <div class="tab-bar fi" id="perfTabs">
-      <button class="tab on" data-chart="exposure">Group Exposure</button>
-      <button class="tab" data-chart="incidents">Incident Trend</button>
-      <button class="tab" data-chart="proactive">Proactive Actions</button>
-      <button class="tab" data-chart="leadership">Leadership</button>
-    </div>
-    <div class="charts-grid fi" id="chartsArea"></div>
-    <div class="lag-grid fi">
-      <div class="lcrd"><div class="lhdr"><span class="ltitle">LTIF by BU (2025)</span><span class="lval">0.04 avg</span></div><div style="height:175px"><canvas id="ltifBU"></canvas></div></div>
-      <div class="lcrd"><div class="lhdr"><span class="ltitle">TRCF by BU (2025)</span><span class="lval">0.28 avg</span></div><div style="height:175px"><canvas id="trcfBU"></canvas></div></div>
-      <div class="lcrd"><div class="lhdr"><span class="ltitle">SMVIR by BU (2025)</span><span class="lval">0.02 avg</span></div><div style="height:175px"><canvas id="smvirBU"></canvas></div></div>
-      <div class="lcrd"><div class="lhdr"><span class="ltitle">MVIR by BU (2025)</span><span class="lval">0.43 avg</span></div><div style="height:175px"><canvas id="mvirBU"></canvas></div></div>
+      <div class="animate-up" style="background:var(--card);border:1px solid var(--border);border-left:3px solid #3498db;border-radius:8px;padding:1rem 1.2rem;display:flex;align-items:center;gap:1rem">
+        <span style="font-family:'Barlow Condensed';font-size:2rem;font-weight:800;color:var(--border)">02</span>
+        <div><div style="font-weight:700;color:#fff;font-size:.95rem">Performance</div><div style="font-size:.75rem;color:var(--muted)">Leading & Lagging Indicators</div></div>
+      </div>
+      <div class="animate-up" style="background:var(--card);border:1px solid var(--border);border-left:3px solid var(--rl);border-radius:8px;padding:1rem 1.2rem;display:flex;align-items:center;gap:1rem">
+        <span style="font-family:'Barlow Condensed';font-size:2rem;font-weight:800;color:var(--border)">03</span>
+        <div><div style="font-weight:700;color:#fff;font-size:.95rem">Incident Analysis</div><div style="font-size:.75rem;color:var(--muted)">Causal analysis & case studies</div></div>
+      </div>
+      <div class="animate-up" style="background:var(--card);border:1px solid var(--border);border-left:3px solid var(--al);border-radius:8px;padding:1rem 1.2rem;display:flex;align-items:center;gap:1rem">
+        <span style="font-family:'Barlow Condensed';font-size:2rem;font-weight:800;color:var(--border)">04</span>
+        <div><div style="font-weight:700;color:#fff;font-size:.95rem">Way to Zero Harm</div><div style="font-size:.75rem;color:var(--muted)">Targets & Forward Plan</div></div>
+      </div>
+      <div class="animate-up" style="background:var(--card);border:1px solid var(--border);border-left:3px solid #9b59b6;border-radius:8px;padding:1rem 1.2rem;display:flex;align-items:center;gap:1rem">
+        <span style="font-family:'Barlow Condensed';font-size:2rem;font-weight:800;color:var(--border)">05</span>
+        <div><div style="font-weight:700;color:#fff;font-size:.95rem">Audits</div><div style="font-size:.75rem;color:var(--muted)">Results & Follow-up</div></div>
+      </div>
+      <div class="animate-up" style="background:var(--card);border:1px solid var(--border);border-left:3px solid var(--gl);border-radius:8px;padding:1rem 1.2rem;display:flex;align-items:center;gap:1rem">
+        <span style="font-family:'Barlow Condensed';font-size:2rem;font-weight:800;color:var(--border)">06–09</span>
+        <div><div style="font-weight:700;color:#fff;font-size:.95rem">Process · Compliance · Challenges</div><div style="font-size:.75rem;color:var(--muted)">Updates, Regulatory & Opportunities</div></div>
+      </div>
     </div>
   </div>
-</section>
+</div>
 
-<hr class="div">
+<!-- ── S3: PREVIOUS ACTIONS ── -->
+<div class="slide" id="s3" data-title="Previous MR Actions">
+  <div class="slide-strip"></div>
+  <div class="slide-brand">STS</div>
+  <div class="slide-inner">
+    <div class="s-eyebrow">Section 01</div>
+    <div class="s-title">Previous MR <em>Actions</em></div>
+    <div class="action-rows" id="actionRows"></div>
+  </div>
+</div>
 
-<!-- 03 ANALYSIS -->
-<section id="analysis">
-  <div class="container">
-    <div class="sec-header fi">
-      <div class="sec-num">03</div>
-      <div>
-        <div class="sec-eyebrow">Causal Analysis</div>
-        <h2 class="sec-title">Incidents Analysis</h2>
-      </div>
-    </div>
-    <div class="analysis-top fi">
-      <div class="inc-totals">
-        <div class="inc-nc" style="background:#fef2f2;border-color:#f5c6c6" data-tip="1 Fatality in 2025. Investigated at highest level."><div class="inc-big" style="color:var(--red)">1</div><div class="inc-type">Fatality</div></div>
-        <div class="inc-nc" style="background:#fff8ec;border-color:#f5dfa0" data-tip="14 Lost Time Injuries in 2025."><div class="inc-big" style="color:var(--amber)">14</div><div class="inc-type">LTI</div></div>
-        <div class="inc-nc" style="background:#e9f5ef;border-color:#b0d9be" data-tip="22 Restricted Work Cases in 2025."><div class="inc-big" style="color:var(--green)">22</div><div class="inc-type">RWC</div></div>
-        <div class="inc-nc" style="background:#f0f4ff;border-color:#c3ceee" data-tip="44 Medical Treatment + First Aid Cases."><div class="inc-big" style="color:#3a5ca8">44</div><div class="inc-type">MTC+FAC</div></div>
-        <div class="inc-nc" style="grid-column:1/-1;background:#f6f0fb;border-color:#d4bde8" data-tip="262 Near-misses / Anomalies / Minor Vehicle Incidents — strong proactive reporting."><div class="inc-big" style="color:#7b3fa0">262</div><div class="inc-type">NM + AD + MVI</div></div>
-      </div>
-      <div>
-        <div class="sec-eyebrow" style="margin-bottom:.8rem">Root Cause Distribution</div>
-        <div id="causalRows"></div>
-        <div class="sec-eyebrow" style="margin-bottom:.6rem;margin-top:1.8rem">Injuries by Activity</div>
-        <div class="activity-wrap"><canvas id="actChart"></canvas></div>
-      </div>
-    </div>
-    <div class="inc-explorer fi">
-      <div class="sec-eyebrow" style="margin-bottom:.8rem">Incident Explorer — Key Events 2025/26</div>
-      <div class="filter-bar" id="incFilters">
-        <button class="ifbtn on" data-f="all">All Events</button>
-        <button class="ifbtn" data-f="dr">Driving</button>
-        <button class="ifbtn" data-f="mh">Material Handling</button>
-        <button class="ifbtn" data-f="fb">Fabrication</button>
-        <button class="ifbtn" data-f="eq">Equipment</button>
-      </div>
-      <div class="inc-grid" id="incGrid"></div>
+<!-- ── S4: KPI TRAFFIC LIGHTS ── -->
+<div class="slide" id="s4" data-title="KPI Performance">
+  <div class="slide-strip amber"></div>
+  <div class="slide-brand">STS</div>
+  <div class="slide-inner">
+    <div class="s-eyebrow">Section 02 — Performance</div>
+    <div class="s-title">KPI Status — <em>Traffic Light</em> Overview</div>
+    <div class="kpi-tl-grid" id="kpiTlGrid"></div>
+    <p style="font-size:.72rem;color:var(--muted);margin-top:1rem;text-align:center">🟢 Below target &nbsp;|&nbsp; 🟡 Near target &nbsp;|&nbsp; 🔴 Above target or worsening</p>
+  </div>
+</div>
+
+<!-- ── S5: PERFORMANCE CHARTS ── -->
+<div class="slide" id="s5" data-title="Performance Charts">
+  <div class="slide-strip"></div>
+  <div class="slide-brand">STS</div>
+  <div class="slide-inner">
+    <div class="s-eyebrow">Section 02 — Performance</div>
+    <div class="s-title">Group <em>Exposure</em> & Incident Trends</div>
+    <div class="charts-2col">
+      <div class="chart-box"><div class="chart-lbl">Group Exposure 2021–2025</div><div class="chart-wrap"><canvas id="cExp"></canvas></div></div>
+      <div class="chart-box"><div class="chart-lbl">Incident & Near-Miss Reporting Trend</div><div class="chart-wrap"><canvas id="cInc"></canvas></div></div>
     </div>
   </div>
-</section>
+</div>
 
-<hr class="div">
-
-<!-- 05 AUDITS -->
-<section id="audits">
-  <div class="container">
-    <div class="sec-header fi">
-      <div class="sec-num">05</div>
-      <div>
-        <div class="sec-eyebrow">Results &amp; Follow-up</div>
-        <h2 class="sec-title">Audit Status</h2>
-      </div>
-    </div>
-    <div class="asrow fi">
-      <div class="ascrd"><div class="as-big">14</div><div class="as-lbl">Total Audits</div><div class="as-sub">100% Completion</div></div>
-      <div class="ascrd"><div class="as-big">18</div><div class="as-lbl">NCs Raised</div><div class="as-sub">18/18 Closed</div></div>
-      <div class="ascrd"><div class="as-big">204</div><div class="as-lbl">Observations</div><div class="as-sub">204/204 Closed</div></div>
-      <div class="ascrd"><div class="as-big">100%</div><div class="as-lbl">Close-out Rate</div><div class="as-sub">Internal + External</div></div>
-    </div>
-    <div class="sec-eyebrow fi" style="margin-bottom:1rem">Performance Score by Element — click any card to expand details</div>
-    <div class="ael-grid fi" id="aelGrid"></div>
-  </div>
-</section>
-
-<hr class="div">
-
-<!-- 06 PROCESS -->
-<section id="process">
-  <div class="container">
-    <div class="sec-header fi">
-      <div class="sec-num">06</div>
-      <div>
-        <div class="sec-eyebrow">Improvements &amp; Initiatives</div>
-        <h2 class="sec-title">Process Updates</h2>
-      </div>
-    </div>
-    <div class="proc-grid fi">
-      <div><div class="proc-grp-lbl">Updated Documents (11)</div><div id="updatedDocs"></div></div>
-      <div><div class="proc-grp-lbl">New Releases (4)</div><div id="newDocs"></div></div>
+<!-- ── S6: LAGGING INDICATORS ── -->
+<div class="slide" id="s6" data-title="Lagging Indicators by BU">
+  <div class="slide-strip amber"></div>
+  <div class="slide-brand">STS</div>
+  <div class="slide-inner">
+    <div class="s-eyebrow">Section 02 — Performance</div>
+    <div class="s-title">Lagging Indicators <em>by Business Unit</em></div>
+    <div class="charts-4">
+      <div class="chart-box"><div class="chart-lbl">LTIF by BU</div><div class="chart-wrap"><canvas id="cLTIF"></canvas></div></div>
+      <div class="chart-box"><div class="chart-lbl">TRCF by BU</div><div class="chart-wrap"><canvas id="cTRCF"></canvas></div></div>
+      <div class="chart-box"><div class="chart-lbl">SMVIR by BU</div><div class="chart-wrap"><canvas id="cSMVIR"></canvas></div></div>
+      <div class="chart-box"><div class="chart-lbl">MVIR by BU</div><div class="chart-wrap"><canvas id="cMVIR"></canvas></div></div>
     </div>
   </div>
-</section>
+</div>
 
-<hr class="div">
-
-<!-- 07-08 COMPLIANCE -->
-<section id="compliance">
-  <div class="container">
-    <div class="sec-header fi">
-      <div class="sec-num">07–08</div>
-      <div>
-        <div class="sec-eyebrow">Regulatory &amp; Operational</div>
-        <h2 class="sec-title">Compliance, Opportunities &amp; Challenges</h2>
+<!-- ── S7: SAFETY PYRAMID / SEVERITY ── -->
+<div class="slide" id="s7" data-title="Incident Severity Scale">
+  <div class="slide-strip red"></div>
+  <div class="slide-brand">STS</div>
+  <div class="slide-inner">
+    <div class="s-eyebrow">Section 03 — Incident Analysis</div>
+    <div class="s-title">Incident <em>Severity Scale</em> 2025</div>
+    <div class="severity-row">
+      <div class="sev-item fatal animate-count">
+        <div class="sev-glow"></div>
+        <div style="font-size:2.5rem">⚰️</div>
+        <div class="sev-big" style="color:#e74c3c">1</div>
+        <div class="sev-name" style="color:#e74c3c">Fatality</div>
+        <div class="traffic-light" id="tl-fatal">
+          <div class="tl-light on-r flash-r"></div>
+          <div class="tl-light"></div>
+          <div class="tl-light"></div>
+        </div>
+        <div class="sev-sub">Full investigation required. Board-level notification.</div>
+      </div>
+      <div class="sev-item lti animate-count">
+        <div class="sev-glow"></div>
+        <div style="font-size:2.5rem">🏥</div>
+        <div class="sev-big" style="color:#f39c12">14</div>
+        <div class="sev-name" style="color:#f39c12">Lost Time Injury</div>
+        <div class="traffic-light">
+          <div class="tl-light"></div>
+          <div class="tl-light on-a"></div>
+          <div class="tl-light"></div>
+        </div>
+        <div class="sev-sub">Employee unable to return to work next shift.</div>
+      </div>
+      <div class="sev-item rwc animate-count">
+        <div class="sev-glow"></div>
+        <div style="font-size:2.5rem">🦺</div>
+        <div class="sev-big" style="color:#9b59b6">22</div>
+        <div class="sev-name" style="color:#9b59b6">Restricted Work Case</div>
+        <div class="traffic-light">
+          <div class="tl-light"></div>
+          <div class="tl-light" style="background:radial-gradient(circle at 35% 35%,#c39bd3,#9b59b6);box-shadow:0 0 20px rgba(155,89,182,.8)"></div>
+          <div class="tl-light"></div>
+        </div>
+        <div class="sev-sub">Modified duties assigned. Full recovery expected.</div>
+      </div>
+      <div class="sev-item mtc animate-count">
+        <div class="sev-glow"></div>
+        <div style="font-size:2.5rem">🩹</div>
+        <div class="sev-big" style="color:#3498db">44</div>
+        <div class="sev-name" style="color:#3498db">MTC + FAC</div>
+        <div class="traffic-light">
+          <div class="tl-light"></div>
+          <div class="tl-light" style="background:radial-gradient(circle at 35% 35%,#85c1e9,#3498db);box-shadow:0 0 20px rgba(52,152,219,.8)"></div>
+          <div class="tl-light"></div>
+        </div>
+        <div class="sev-sub">Medical treatment & first aid cases combined.</div>
+      </div>
+      <div class="sev-item nm animate-count">
+        <div class="sev-glow"></div>
+        <div style="font-size:2.5rem">📋</div>
+        <div class="sev-big" style="color:#2ecc71">262</div>
+        <div class="sev-name" style="color:#2ecc71">NM + AD + MVI</div>
+        <div class="traffic-light">
+          <div class="tl-light"></div>
+          <div class="tl-light"></div>
+          <div class="tl-light on-g"></div>
+        </div>
+        <div class="sev-sub">Near-misses, anomalies & minor vehicle incidents — healthy reporting culture.</div>
       </div>
     </div>
-    <div class="comp-grid fi">
-      <div class="ccard">
-        <div class="ccard-title">Opportunities</div>
-        <ul class="clist">
+  </div>
+</div>
+
+<!-- ── S8: CASE STUDIES – DRIVING ── -->
+<div class="slide" id="s8" data-title="Case Studies — Driving">
+  <div class="slide-strip red"></div>
+  <div class="slide-brand">STS</div>
+  <div class="slide-inner">
+    <div class="s-eyebrow">Section 03 — Incident Case Studies</div>
+    <div class="s-title">🚗 Driving Incidents — <em>43% of All Injuries</em></div>
+    <div class="road-scene">
+      <div class="lane-line"></div>
+      <div class="car" style="animation-delay:0s">🚛</div>
+      <div class="car" style="animation-delay:3s;font-size:1.4rem">🚙</div>
+      <div class="warning" style="left:40%">⚠️</div>
+      <div class="warning" style="left:70%;animation-delay:.8s">🚧</div>
+    </div>
+    <div class="case-grid" id="caseGridDrive"></div>
+  </div>
+</div>
+
+<!-- ── S9: CASE STUDIES – MATERIAL HANDLING & FABRICATION ── -->
+<div class="slide" id="s9" data-title="Case Studies — MH & Fabrication">
+  <div class="slide-strip amber"></div>
+  <div class="slide-brand">STS</div>
+  <div class="slide-inner">
+    <div class="s-eyebrow">Section 03 — Incident Case Studies</div>
+    <div class="s-title">🏗️ Material Handling &amp; Fabrication Incidents</div>
+    <div class="case-grid" id="caseGridMHFab"></div>
+  </div>
+</div>
+
+<!-- ── S10: EQUIPMENT INCIDENTS (EQUATE) ── -->
+<div class="slide" id="s10" data-title="EQUATE Critical Incidents">
+  <div class="slide-strip red"></div>
+  <div class="slide-brand">STS</div>
+  <div class="slide-inner">
+    <div class="s-eyebrow">Section 03 — Critical Incidents · EQUATE 2026</div>
+    <div class="s-title">⚠️ High-Severity <em>Equipment Incidents</em></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;flex:1">
+      <div style="background:rgba(192,57,43,.06);border:1px solid rgba(192,57,43,.25);border-top:3px solid var(--rl);border-radius:12px;padding:1.5rem;display:flex;flex-direction:column;gap:.8rem" class="animate-up">
+        <div style="display:flex;gap:.7rem;align-items:center;flex-wrap:wrap">
+          <span class="case-tag tag-eq">Equipment</span>
+          <span class="case-sev sev-r">🔴 LTI</span>
+          <span style="font-size:.72rem;color:var(--muted)">📅 1 Jan 2026 · EQUATE</span>
+        </div>
+        <div style="font-family:'Barlow Condensed';font-size:1.2rem;font-weight:700;color:#fff">Tailing Lug Failure – Trial Lift</div>
+        <div style="font-size:.85rem;color:var(--muted);line-height:1.6">During a trial lift of the bypass stack (~55 tonnes), the tailing lug detached unexpectedly, causing the load to drop approximately 500 mm to the ground. Minor dent resulted on the bottom shell plate.</div>
+        <div style="background:rgba(255,255,255,.04);border-radius:8px;padding:.8rem;font-size:.8rem">
+          <div style="color:var(--rl);font-weight:700;margin-bottom:.4rem">Root Causes</div>
+          <div style="color:var(--muted)">• Change not formally assessed or controlled<br>• Critical hazards not identified prior to execution<br>• Work planning failed to account for actual conditions</div>
+        </div>
+        <div style="background:rgba(46,204,113,.06);border:1px solid rgba(46,204,113,.15);border-radius:8px;padding:.7rem;font-size:.8rem;color:var(--gl)">💡 <strong>Lesson:</strong> All lifting plans must include a dynamic risk assessment at time of execution, not only at planning stage.</div>
+      </div>
+      <div style="background:rgba(192,57,43,.06);border:1px solid rgba(192,57,43,.25);border-top:3px solid var(--rl);border-radius:12px;padding:1.5rem;display:flex;flex-direction:column;gap:.8rem" class="animate-up">
+        <div style="display:flex;gap:.7rem;align-items:center;flex-wrap:wrap">
+          <span class="case-tag tag-eq">Equipment</span>
+          <span class="case-sev sev-r">🔴 LTI</span>
+          <span style="font-size:.72rem;color:var(--muted)">📅 12 Feb 2026 · EQUATE</span>
+        </div>
+        <div style="font-family:'Barlow Condensed';font-size:1.2rem;font-weight:700;color:#fff">Pipeline Lateral Shift – Confined Space</div>
+        <div style="font-size:.85rem;color:var(--muted);line-height:1.6">During work resumption, a fabricator sustained a hip fracture after being struck by a 24-inch pipeline that shifted laterally while he was working in a confined space of only 1.1–1.4 m between two pipelines.</div>
+        <div style="background:rgba(255,255,255,.04);border-radius:8px;padding:.8rem;font-size:.8rem">
+          <div style="color:var(--rl);font-weight:700;margin-bottom:.4rem">Root Causes</div>
+          <div style="color:var(--muted)">• AWD removed without proper hazard assessment<br>• Confined space risk not re-evaluated on resumption<br>• No dynamic restraint system in place</div>
+        </div>
+        <div style="background:rgba(46,204,113,.06);border:1px solid rgba(46,204,113,.15);border-radius:8px;padding:.7rem;font-size:.8rem;color:var(--gl)">💡 <strong>Lesson:</strong> Work resumption must trigger a full restart assessment — treat it as a new permit, not a continuation.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── S11: CAUSAL ANALYSIS ── -->
+<div class="slide" id="s11" data-title="Causal Analysis">
+  <div class="slide-strip amber"></div>
+  <div class="slide-brand">STS</div>
+  <div class="slide-inner">
+    <div class="s-eyebrow">Section 03 — Root Cause Analysis</div>
+    <div class="s-title">Why Do Incidents <em>Happen?</em></div>
+    <div class="causal-cards">
+      <div class="causal-card animate-up">
+        <div class="causal-arc" style="background:#c0392b"></div>
+        <div class="causal-pct-bubble" style="background:linear-gradient(135deg,#c0392b,#e74c3c)">26%</div>
+        <div class="causal-card-title">Hazard ID &amp; Risk Management</div>
+        <ul class="causal-actions">
+          <li>RM Engagement Sessions &amp; Audits</li>
+          <li>Step Back 5×5 programme</li>
+          <li>PTW Audits &amp; verification</li>
+        </ul>
+      </div>
+      <div class="causal-card animate-up">
+        <div class="causal-arc" style="background:#e67e22"></div>
+        <div class="causal-pct-bubble" style="background:linear-gradient(135deg,#e67e22,#f39c12)">24%</div>
+        <div class="causal-card-title">Supervision &amp; Leadership</div>
+        <ul class="causal-actions">
+          <li>Actions from HSE Scorecard</li>
+          <li>Effective performance assessment</li>
+          <li>Enhanced leadership visibility</li>
+        </ul>
+      </div>
+      <div class="causal-card animate-up">
+        <div class="causal-arc" style="background:#27ae60"></div>
+        <div class="causal-pct-bubble" style="background:linear-gradient(135deg,#27ae60,#2ecc71)">14%</div>
+        <div class="causal-card-title">Non-compliance with Procedures</div>
+        <ul class="causal-actions">
+          <li>Coaching on critical procedures</li>
+          <li>Knowledge sharing sessions</li>
+          <li>Consequences framework</li>
+        </ul>
+      </div>
+    </div>
+    <div style="margin-top:1.2rem">
+      <div style="font-size:.68rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:.7rem">Activities Causing Injuries</div>
+      <div style="display:flex;gap:.6rem;flex-wrap:wrap">
+        <span style="background:rgba(192,57,43,.15);color:#e74c3c;padding:.25rem .7rem;border-radius:50px;font-size:.75rem;font-weight:700">🚗 Driving 43%</span>
+        <span style="background:rgba(230,126,34,.15);color:#f39c12;padding:.25rem .7rem;border-radius:50px;font-size:.75rem;font-weight:700">📦 Material Handling 27%</span>
+        <span style="background:rgba(39,174,96,.15);color:#2ecc71;padding:.25rem .7rem;border-radius:50px;font-size:.75rem;font-weight:700">🔧 Fabrication 13%</span>
+        <span style="background:rgba(52,152,219,.15);color:#3498db;padding:.25rem .7rem;border-radius:50px;font-size:.75rem;font-weight:700">⚙️ Equipment 10%</span>
+        <span style="background:rgba(155,89,182,.15);color:#9b59b6;padding:.25rem .7rem;border-radius:50px;font-size:.75rem;font-weight:700">🏗️ Excavation 7%</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── S12: AUDIT STATUS ── -->
+<div class="slide" id="s12" data-title="Audit Status">
+  <div class="slide-strip"></div>
+  <div class="slide-brand">STS</div>
+  <div class="slide-inner">
+    <div class="s-eyebrow">Section 05 — Audits</div>
+    <div class="s-title">Audit <em>Status &amp; Scores</em></div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:1.5rem">
+      <div class="animate-count" style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1rem;text-align:center">
+        <div style="font-family:'Barlow Condensed';font-size:2.5rem;font-weight:700;color:var(--gl)">14</div>
+        <div style="font-size:.65rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted)">Total Audits</div>
+        <div style="font-size:.72rem;color:var(--gl);margin-top:.2rem">100% Complete</div>
+      </div>
+      <div class="animate-count" style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1rem;text-align:center">
+        <div style="font-family:'Barlow Condensed';font-size:2.5rem;font-weight:700;color:var(--gl)">18</div>
+        <div style="font-size:.65rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted)">NCs Raised</div>
+        <div style="font-size:.72rem;color:var(--gl);margin-top:.2rem">18/18 Closed ✓</div>
+      </div>
+      <div class="animate-count" style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1rem;text-align:center">
+        <div style="font-family:'Barlow Condensed';font-size:2.5rem;font-weight:700;color:var(--gl)">204</div>
+        <div style="font-size:.65rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted)">Observations</div>
+        <div style="font-size:.72rem;color:var(--gl);margin-top:.2rem">204/204 Closed ✓</div>
+      </div>
+      <div class="animate-count" style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1rem;text-align:center">
+        <div style="font-family:'Barlow Condensed';font-size:2.5rem;font-weight:700;color:var(--gl)">100%</div>
+        <div style="font-size:.65rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted)">Close-out Rate</div>
+        <div style="font-size:.72rem;color:var(--gl);margin-top:.2rem">Internal + External</div>
+      </div>
+    </div>
+    <div class="audit-bars" id="auditBars"></div>
+  </div>
+</div>
+
+<!-- ── S13: PROCESS UPDATES ── -->
+<div class="slide" id="s13" data-title="Process Updates">
+  <div class="slide-strip"></div>
+  <div class="slide-brand">STS</div>
+  <div class="slide-inner">
+    <div class="s-eyebrow">Section 06 — Improvements &amp; Initiatives</div>
+    <div class="s-title">Process <em>Updates</em></div>
+    <div class="proc-2col" id="procWrap"></div>
+  </div>
+</div>
+
+<!-- ── S14: COMPLIANCE ── -->
+<div class="slide" id="s14" data-title="Compliance & Challenges">
+  <div class="slide-strip amber"></div>
+  <div class="slide-brand">STS</div>
+  <div class="slide-inner">
+    <div class="s-eyebrow">Section 07–08 — Compliance &amp; Challenges</div>
+    <div class="s-title">Compliance, <em>Opportunities</em> &amp; Challenges</div>
+    <div class="comp-3col">
+      <div class="comp-card animate-up">
+        <div class="comp-title">🌱 Opportunities</div>
+        <ul class="comp-list">
           <li><span>🌞</span>Replicate solar success stories across sites</li>
           <li><span>⚡</span>EV fleet transition initiative</li>
           <li><span>📋</span>Incident reporting to Zonal office</li>
         </ul>
       </div>
-      <div class="ccard">
-        <div class="ccard-title">HSE Penalties / Defaults</div>
-        <div class="pen-item" data-tip="LPIC Turnaround — highest penalty in 2025"><span class="pen-loc">LPIC TA</span><span class="pen-amt">OR 9,500</span></div>
-        <div class="pen-item" data-tip="Bisat C project penalty"><span class="pen-loc">Bisat C</span><span class="pen-amt">OR 7,500</span></div>
-        <div class="pen-item" data-tip="PDC penalty"><span class="pen-loc">PDC</span><span class="pen-amt">OR 4,000</span></div>
-        <div class="pen-item" data-tip="MIC penalty"><span class="pen-loc">MIC</span><span class="pen-amt">OR 1,000</span></div>
-        <div style="margin-top:.8rem;padding-top:.8rem;border-top:1px solid var(--bg);font-size:.82rem;color:var(--muted)">Total: <strong style="color:var(--red)">OR 22,000</strong></div>
+      <div class="comp-card animate-up">
+        <div class="comp-title">⚖️ HSE Penalties</div>
+        <div class="pen-row"><span class="pen-loc">LPIC TA</span><span class="pen-amt">OR 9,500</span></div>
+        <div class="pen-row"><span class="pen-loc">Bisat C</span><span class="pen-amt">OR 7,500</span></div>
+        <div class="pen-row"><span class="pen-loc">PDC</span><span class="pen-amt">OR 4,000</span></div>
+        <div class="pen-row"><span class="pen-loc">MIC</span><span class="pen-amt">OR 1,000</span></div>
+        <div class="pen-total">Total: <strong>OR 22,000</strong></div>
       </div>
-      <div class="ccard">
-        <div class="ccard-title">Challenges</div>
-        <ul class="clist">
-          <li><span>👤</span>Onboarding of key positions still in progress</li>
+      <div class="comp-card animate-up">
+        <div class="comp-title">⚠️ Challenges</div>
+        <ul class="comp-list">
+          <li><span>👤</span>Onboarding of key positions</li>
           <li><span>👁️</span>Limited leadership visibility in out-of-Oman operations</li>
-          <li><span>⚠️</span>Current geopolitical situation impacting operations</li>
+          <li><span>🌍</span>Current geopolitical situation impacting operations</li>
         </ul>
       </div>
     </div>
   </div>
-</section>
+</div>
 
-<footer>
-  <div><strong>STS – Special Technical Services</strong></div>
-  <div style="margin-top:.5rem">HSE Management Review &nbsp;·&nbsp; STS HO, Muscat &nbsp;·&nbsp; 16 March 2026</div>
-  <div style="margin-top:.4rem;font-size:.72rem">Health &nbsp;·&nbsp; Safety &nbsp;·&nbsp; Environment</div>
-</footer>
+<!-- ── S15: THANK YOU ── -->
+<div class="slide" id="s-end" data-title="Thank You">
+  <div class="slide-brand">STS</div>
+  <div class="end-inner">
+    <div class="end-logo animate-count">STS</div>
+    <div style="font-family:'Barlow Condensed';font-size:2rem;font-weight:700;color:rgba(255,255,255,.6)">HSE Management Review 2026</div>
+    <div class="end-tagline">STS Head Office, Muscat &nbsp;·&nbsp; 16 March 2026</div>
+    <div class="end-motto">
+      <span>Health</span>
+      <span>Safety</span>
+      <span>Environment</span>
+    </div>
+    <div style="margin-top:1.5rem;display:flex;gap:3rem;text-align:center">
+      <div class="animate-count"><div style="font-family:'Barlow Condensed';font-size:2.5rem;font-weight:700;color:var(--gl)">0.04</div><div style="font-size:.68rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted)">LTIF 2025</div></div>
+      <div class="animate-count"><div style="font-family:'Barlow Condensed';font-size:2.5rem;font-weight:700;color:var(--gl)">262</div><div style="font-size:.68rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted)">Near Misses Reported</div></div>
+      <div class="animate-count"><div style="font-family:'Barlow Condensed';font-size:2.5rem;font-weight:700;color:var(--gl)">100%</div><div style="font-size:.68rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted)">Audit Close-out</div></div>
+    </div>
+    <div class="road" style="position:relative;height:80px;width:100%;max-width:800px;border-radius:8px;overflow:hidden;background:#1a1a1a;flex-shrink:0">
+      <div class="road-line" style="bottom:36px;animation:road-scroll 1.5s linear infinite"></div>
+      <div class="car" style="animation-duration:6s;top:50%;transform:translateY(-50%)">🚗</div>
+    </div>
+  </div>
+</div>
+
+</div><!-- end deck -->
+
+<!-- NAV BAR -->
+<div id="nav">
+  <div id="nav-left">
+    <button class="nav-btn" id="btnPrev" onclick="goSlide(curSlide-1)">◀ Prev</button>
+    <div id="slide-counter">1 / 15</div>
+    <button class="nav-btn" id="btnNext" onclick="goSlide(curSlide+1)">Next ▶</button>
+  </div>
+  <div id="dots-wrap"></div>
+  <div id="nav-right">
+    <div id="slide-title-bar"></div>
+    <button class="nav-btn" onclick="toggleFullscreen()">⛶ Fullscreen</button>
+  </div>
+</div>
 
 <script>
-/* ═══ COLOURS ═══ */
-const G='#2a8f47',A='#e67e22',R='#c0392b',B='#3a5ca8',T='#0d7a6e',S='#1e2d3d',GL='#3cbe62';
-Chart.defaults.font.family="'Barlow',sans-serif";
-Chart.defaults.color='#5a6a5e';
-
 /* ═══ DATA ═══ */
 const ACTIONS=[
-  {num:'01',title:'Supervisor Competency',detail:'Completed in Projects, EMC, WS Oman. RAK & IB still pending completion.',cls:'p',badge:'bd-p',bl:'Partially Done'},
-  {num:'02',title:'Renewable Energy – Solar',detail:'RAK functional. Sohar awaiting regulatory clearance. Amal camp fence lighting in final stage. Jubail proposal under active consideration. BP data collection trial ongoing.',cls:'w',badge:'bd-w',bl:'In Progress'},
-  {num:'03',title:'Procedural Awareness',detail:'EMC 518 · Projects 95 · WS 48 · IB 52. Risk Management Campaign, DRR training, and Risk Normalisation Campaign underway.',cls:'w',badge:'bd-w',bl:'In Progress'},
-  {num:'04',title:'Legal Compliance Outside Oman',detail:'KSA and Bahrain assessments completed. Kuwait and Qatar currently in progress.',cls:'p',badge:'bd-p',bl:'Partially Done'},
-  {num:'05',title:'OPAL Camp Certification',detail:'EMC completed. Projects Muk & Bisat completed. BP and Gadafan currently in progress.',cls:'p',badge:'bd-p',bl:'Partially Done'},
-  {num:'06',title:'IB Operations – HSE Performance',detail:'KPIs set, joint weekly walkarounds established, campaign rollouts active, leadership visibility enhanced.',cls:'c',badge:'bd-c',bl:'Completed'},
-  {num:'07',title:'Leadership & Supervision Scorecard',detail:'Supervisor HSE Scorecard system design complete. Rolling out across all business units.',cls:'w',badge:'bd-w',bl:'In Progress'},
-  {num:'08',title:'Risk Management Campaign',detail:'RM Audits conducted. Staff trained in Dynamic Risk Register. Risk Normalisation Campaign in progress.',cls:'w',badge:'bd-w',bl:'In Progress'},
+  {num:'01',title:'Supervisor Competency',badge:'Partially Done',bc:'ab-b',tl:'a',detail:'Completed in Projects, EMC, WS Oman. RAK & IB still pending.'},
+  {num:'02',title:'Renewable Energy – Solar',badge:'In Progress',bc:'ab-a',tl:'a',detail:'RAK functional. Sohar awaiting regulatory clearance. Amal final stage. Jubail under consideration.'},
+  {num:'03',title:'Procedural Awareness & RM Campaign',badge:'In Progress',bc:'ab-a',tl:'a',detail:'EMC 518 · Projects 95 · WS 48 · IB 52. DRR training and Risk Normalisation Campaign underway.'},
+  {num:'04',title:'Legal Compliance Outside Oman',badge:'Partially Done',bc:'ab-b',tl:'a',detail:'KSA and Bahrain completed. Kuwait and Qatar in progress.'},
+  {num:'05',title:'OPAL Camp Certification',badge:'Partially Done',bc:'ab-b',tl:'a',detail:'EMC + Projects (Muk & Bisat) completed. BP and Gadafan in progress.'},
+  {num:'06',title:'IB Operations – HSE Performance',badge:'Completed',bc:'ab-g',tl:'g',detail:'KPIs set, joint weekly walkarounds, campaign rollouts, leadership visibility enhanced.'},
+  {num:'07',title:'Leadership & Supervision Scorecard',badge:'In Progress',bc:'ab-a',tl:'a',detail:'Scorecard system designed. Rolling out across all business units.'},
+  {num:'08',title:'Risk Management Campaign',badge:'In Progress',bc:'ab-a',tl:'a',detail:'RM Audits done. Staff trained in DRR. Risk Normalisation Campaign rolling out.'},
 ];
 
-const INCIDENTS=[
-  {cat:'dr',tag:'Driving',tcls:'tg-dr',date:'17 Apr 2025 · PRC',desc:'Prime mover detached from trailer while taking diversion from Jeddah road to PRC Gate.'},
-  {cat:'dr',tag:'Driving',tcls:'tg-dr',date:'12 Aug 2025 · Yibal',desc:'RSIT vehicle rolled over while travelling from Yibal to Nizwa.'},
-  {cat:'dr',tag:'Driving',tcls:'tg-dr',date:'30 Oct 2025 · Bahrain',desc:'Tipper trailer body contacted overhead 33 kV power line.'},
-  {cat:'mh',tag:'Material Handling',tcls:'tg-mh',date:'10 Feb 2025 · Nizwa',desc:'Banksman suffered partial finger amputation while replacing a backhoe bucket.'},
-  {cat:'mh',tag:'Material Handling',tcls:'tg-mh',date:'20 Oct 2025 · Marmul',desc:"Banksman's right thumb pinched between beams while placing beams on trailer."},
-  {cat:'fb',tag:'Fabrication',tcls:'tg-fb',date:'15 Feb 2025 · MAF',desc:'Employee suffered crush injury on left hand while manually rolling conical skirt shell.'},
-  {cat:'fb',tag:'Fabrication',tcls:'tg-fb',date:'12 Feb 2025 · RAK',desc:'Employee suffered partial amputation of right middle finger while polishing valve stem.'},
-  {cat:'fb',tag:'Fabrication',tcls:'tg-fb',date:'9 Nov 2025 · Nizwa',desc:'Operator suffered multiple finger injuries during chamfering operation.'},
-  {cat:'eq',tag:'Equipment',tcls:'tg-eq',date:'1 Jan 2026 · EQUATE',desc:'Tailing lug detached during trial lift of 55-tonne bypass stack; load dropped ~500 mm to ground.'},
-  {cat:'eq',tag:'Equipment',tcls:'tg-eq',date:'12 Feb 2026 · EQUATE',desc:'Fabricator sustained hip fracture after 24-inch pipeline shifted laterally in confined space.'},
+const KPI_DATA=[
+  {name:'LTIF',val:'0.04',target:'0.13',tl:'g',verdict:'Below Target ✓',vc:'vd-g',desc:'Lost Time Injury Frequency'},
+  {name:'TRCF',val:'0.28',target:'0.45',tl:'g',verdict:'Below Target ✓',vc:'vd-g',desc:'Total Recordable Case Frequency'},
+  {name:'MVIR',val:'0.43',target:'0.46',tl:'a',verdict:'Near Target',vc:'vd-a',desc:'Motor Vehicle Incident Rate'},
+  {name:'Non-Acc. Deaths',val:'5',target:'< 3',tl:'r',verdict:'Worsened ↑',vc:'vd-r',desc:'Increased from 3 in 2024'},
 ];
 
-const AEL=[
-  {name:'Risk & Safety Management',pct:33.7,detail:'Highest weighted element. Covers hazard identification, risk assessment processes, and RM campaign effectiveness. 16 internal NCs — all closed.'},
-  {name:'Operational Control',pct:22.5,detail:'PTW system, confined space, hot work, lifting operations. Procedural compliance and verification audits included.'},
-  {name:'People & Competence',pct:21.3,detail:'Supervisor competency assessments, onboarding, HSE training hours, and scorecard performance tracking.'},
-  {name:'Compliance & Documentation',pct:17.4,detail:'Legal register, regulatory compliance outside Oman, document control and revision cycles.'},
-  {name:'Performance & Improvement',pct:8.9,detail:'Incident investigation quality, corrective action closure rates, and management review effectiveness.'},
+const CASES_DRIVE=[
+  {tag:'Driving',tcls:'tag-dr',sev:'Fatal',sc:'sev-r',date:'17 Apr 2025 · PRC',cls:'sev-fatal',desc:'Prime mover detached from trailer while taking diversion from Jeddah road to PRC Gate.',lesson:'Pre-departure checks must include fifth-wheel coupling inspection for every trip.'},
+  {tag:'Driving',tcls:'tag-dr',sev:'LTI',sc:'sev-a',date:'12 Aug 2025 · Yibal',cls:'sev-lti',desc:'RSIT vehicle rolled over while travelling from Yibal to Nizwa on desert road.',lesson:'Driver fatigue monitoring and route hazard briefings mandatory for long-distance desert routes.'},
+  {tag:'Driving',tcls:'tag-dr',sev:'LTI',sc:'sev-a',date:'30 Oct 2025 · Bahrain',cls:'sev-lti',desc:'Tipper trailer body came into contact with overhead 33 kV power line during tipping operation.',lesson:'Overhead line surveys must be conducted before any tipping operation at new or unverified sites.'},
+];
+const CASES_MH_FAB=[
+  {tag:'Material Handling',tcls:'tag-mh',sev:'LTI',sc:'sev-a',date:'10 Feb 2025 · Nizwa',cls:'sev-lti',desc:'Banksman suffered partial finger amputation while replacing a backhoe bucket.',lesson:'Hand exclusion zones must be enforced with physical barriers, not verbal instruction alone.'},
+  {tag:'Material Handling',tcls:'tag-mh',sev:'RWC',sc:'sev-r',date:'20 Oct 2025 · Marmul',cls:'sev-rwc',desc:"Banksman's right thumb pinched between beams while placing beams on trailer.",lesson:'Two-person check required before any beam placement. Hands never under suspended load.'},
+  {tag:'Fabrication',tcls:'tag-fb',sev:'LTI',sc:'sev-a',date:'15 Feb 2025 · MAF',cls:'sev-lti',desc:'Employee suffered crush injury on left hand while manually rolling conical skirt shell.',lesson:'Mechanical assists must be used for rolling operations. Manual rolling prohibited for shells over 500 kg.'},
+  {tag:'Fabrication',tcls:'tag-fb',sev:'LTI',sc:'sev-a',date:'12 Feb 2025 · RAK',cls:'sev-lti',desc:'Employee suffered partial amputation of right middle finger while polishing valve stem.',lesson:'Gloves of correct specification required. Rotating equipment contact guard checks before startup.'},
+];
+
+const AUDIT_EL=[
+  {name:'Risk & Safety Management',pct:33.7},
+  {name:'Operational Control',pct:22.5},
+  {name:'People & Competence',pct:21.3},
+  {name:'Compliance & Documentation',pct:17.4},
+  {name:'Performance & Improvement',pct:8.9},
 ];
 
 const UPDATED_DOCS=[
-  {n:'HSE MS Manual',r:'R1 Sept 25 · Issue 3'},{n:'Learning from Incidents (LFI)',r:'R1 Sept 25 · Issue 1'},
-  {n:'PPE Procedure',r:'R1 Oct 25 · Issue 1'},{n:'Environmental Aspect Impact',r:'R0 Aug 25 · Issue 2'},
-  {n:'Legal Requirements Register',r:'R0 Aug 25 · Issue 2'},{n:'ERP Procedure',r:'R0 Aug 25 · Issue 2'},
-  {n:'Management of Change',r:'R0 Aug 25 · Issue 2'},{n:'Hot Works',r:'R0 Feb 25 · Issue 2'},
-  {n:'Mechanical Lifting',r:'R1 Jul 25 · Issue 2'},{n:'Chemical Management',r:'R0 Aug 25 · Issue 2'},
-  {n:'Work in Confined Space',r:'R0 Aug 25 · Issue 2'},
+  {n:'HSE MS Manual',r:'R1 Sept 25'},{n:'Learning from Incidents (LFI)',r:'R1 Sept 25'},
+  {n:'PPE Procedure',r:'R1 Oct 25'},{n:'Environmental Aspect Impact',r:'R0 Aug 25'},
+  {n:'Legal Requirements Register',r:'R0 Aug 25'},{n:'ERP Procedure',r:'R0 Aug 25'},
+  {n:'Management of Change',r:'R0 Aug 25'},{n:'Hot Works',r:'R0 Feb 25'},
+  {n:'Mechanical Lifting',r:'R1 Jul 25'},{n:'Chemical Management',r:'R0 Aug 25'},
+  {n:'Work in Confined Space',r:'R0 Aug 25'},
 ];
 const NEW_DOCS=[
-  {n:'Managing Specialized Activities',r:'R0 Sept 25 · Issue 1'},
-  {n:'Work Near Live Overhead Lines',r:'R0 Aug 25 · Issue 2'},
-  {n:'Fatigue Management',r:'R0 Sept 25 · Issue 1'},
-  {n:'Office Safety',r:'R0 Aug 25 · Issue 2'},
+  {n:'Managing Specialized Activities',r:'R0 Sept 25'},
+  {n:'Work Near Live Overhead Lines',r:'R0 Aug 25'},
+  {n:'Fatigue Management',r:'R0 Sept 25'},
+  {n:'Office Safety',r:'R0 Aug 25'},
 ];
 
-const PRESENT_SLIDES=[
-  {title:'HSE Management Review 2026',body:'STS Group — Annual review of health, safety and environment performance. Presented to senior management at STS HO, Muscat, 16 March 2026.',kpis:[{v:'47M',l:'Man-hours'},{v:'44M',l:'Km Driven'},{v:'0.04',l:'LTIF'},{v:'262',l:'Near Misses'}]},
-  {title:'Previous Actions',body:'8 actions tracked from prior Management Review. 1 fully completed, 4 in progress, 3 partially done. Solar sites in RAK operational; Legal compliance completed in KSA and Bahrain.',kpis:[{v:'1',l:'Completed'},{v:'4',l:'In Progress'},{v:'3',l:'Partial'}]},
-  {title:'Group Performance',body:'LTIF and TRCF both well below 2026 targets. Motor Vehicle Incident Rate near target. Non-Accidental Deaths increased to 5 — requires priority health and preventive focus.',kpis:[{v:'0.04',l:'LTIF (tgt 0.13)'},{v:'0.28',l:'TRCF (tgt 0.45)'},{v:'0.43',l:'MVIR (tgt 0.46)'},{v:'5',l:'Non-Acc. Deaths'}]},
-  {title:'Incidents Analysis',body:'43% of injuries involved driving activities. Material handling (27%) and fabrication (13%) follow. Root causes: hazard ID failure (26%), supervision gaps (24%), procedural non-compliance (14%).',kpis:[{v:'1',l:'Fatality'},{v:'14',l:'LTI'},{v:'22',l:'RWC'},{v:'262',l:'Near Misses'}]},
-  {title:'Audit Status',body:'All 14 planned audits completed with a 100% close-out rate on all NCs and observations. Risk & Safety Management scored highest at 33.7%.',kpis:[{v:'14',l:'Audits Done'},{v:'18/18',l:'NCs Closed'},{v:'204/204',l:'Obs Closed'},{v:'100%',l:'Close-out'}]},
-  {title:'Process Updates',body:'11 existing procedures updated and 4 new procedures released in 2025, including Managing Specialized Activities, Fatigue Management, Office Safety, and Work Near Live OHL.',kpis:[{v:'11',l:'Updated'},{v:'4',l:'New Releases'}]},
-  {title:'Compliance & Challenges',body:'Total HSE penalties of OR 22,000 across 4 projects. Key challenges: leadership visibility gaps, key position vacancies, geopolitical situation. Opportunities: EV fleet, solar scale-up.',kpis:[{v:'OR 22K',l:'Total Penalties'},{v:'3',l:'Challenges'},{v:'3',l:'Opportunities'}]},
-];
+/* ═══ CHART DEFAULTS ═══ */
+Chart.defaults.font.family="'Barlow',sans-serif";
+Chart.defaults.color='#8b949e';
+const G='#27ae60',A='#e67e22',R='#c0392b',B='#3498db',T='#16a085',S='rgba(255,255,255,.5)';
+const GRID={color:'rgba(255,255,255,.06)'};
 
-/* ═══ CHART DEFS ═══ */
-const CHART_DEFS={
-  exposure:{
-    L:{t:'Group Exposure (2021–2025)',type:'line',data:{labels:['2021','2022','2023','2024','2025'],datasets:[
-      {label:'Mln Manhours',data:[41.08,44.26,41.77,45.80,47.16],borderColor:B,backgroundColor:'rgba(58,92,168,.08)',tension:.35,pointRadius:5,borderWidth:2.5},
-      {label:'Mln Kms',data:[43.50,41.04,43.04,47.90,43.86],borderColor:R,backgroundColor:'rgba(192,57,43,.08)',tension:.35,pointRadius:5,borderWidth:2.5}
-    ]},o:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{boxWidth:11,padding:13}}},scales:{y:{grid:{color:'#eaeaea'}}}}},
-    R:{t:'Non-Accidental Deaths (2021–2025)',type:'bar',data:{labels:['2021','2022','2023','2024','2025'],datasets:[{label:'NADs',data:[8,2,2,3,5],backgroundColor:[G,G,G,A,R],borderRadius:5}]},o:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{grid:{color:'#eaeaea'}}}}}
-  },
-  incidents:{
-    L:{t:'Incident & NM Reporting Trend',type:'line',data:{labels:['2021','2022','2023','2024','2025'],datasets:[
-      {label:'Incidents',data:[226,317,303,363,313],borderColor:R,backgroundColor:'rgba(192,57,43,.08)',tension:.3,pointRadius:5,borderWidth:2.5},
-      {label:'Near Misses',data:[102,160,170,227,206],borderColor:G,backgroundColor:'rgba(42,143,71,.08)',tension:.3,pointRadius:5,borderWidth:2.5}
-    ]},o:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{boxWidth:11,padding:13}}},scales:{y:{grid:{color:'#eaeaea'}}}}},
-    R:{t:'Lagging Rate Trend (TRCF / LTIF)',type:'line',data:{labels:['2021','2022','2023','2024','2025'],datasets:[
-      {label:'TRCF',data:[0.61,0.54,0.51,0.46,0.26],borderColor:A,backgroundColor:'rgba(230,126,34,.08)',tension:.35,pointRadius:5,borderWidth:2.5},
-      {label:'LTIF',data:[0.1,0.07,0.05,0.06,0.04],borderColor:G,backgroundColor:'rgba(42,143,71,.08)',tension:.35,pointRadius:5,borderWidth:2.5}
-    ]},o:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{boxWidth:11,padding:13}}},scales:{y:{grid:{color:'#eaeaea'}}}}}
-  },
-  proactive:{
-    L:{t:'Safe Work Assessments (SWAs) by BU',type:'bar',data:{labels:['EMC','Projects','IB','Workshops'],datasets:[{data:[1762,719,541,161],backgroundColor:[G,B,T,A],borderRadius:5}]},o:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{grid:{color:'#eaeaea'}}}}},
-    R:{t:'HSE Events by BU',type:'bar',data:{labels:['EMC','Projects','Workshop','IB'],datasets:[
-      {label:'RM Sessions',data:[425,263,106,68],backgroundColor:G,borderRadius:3},
-      {label:'STEP Back 5×5',data:[6579,2211,83,0],backgroundColor:B,borderRadius:3},
-      {label:'PTW Verif.',data:[5280,2841,0,1448],backgroundColor:T,borderRadius:3}
-    ]},o:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{boxWidth:10,padding:10}}},scales:{y:{grid:{color:'#eaeaea'}}}}}
-  },
-  leadership:{
-    L:{t:'Leadership Walkarounds 2025 (Top 10)',type:'bar',data:{labels:['GM HSE','GM BSTS','COO WS','Sr GM Proj','GM IB','GM EMC','CM MICN','CEO','MD','GM P&E'],datasets:[{data:[24,20,19,19,18,18,17,17,15,12],backgroundColor:S,borderRadius:3}]},o:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{color:'#eaeaea'}}}}},
-    R:{t:'Walkarounds Distribution (GM+)',type:'doughnut',data:{labels:['GM HSE','GM BSTS','COO WS','Sr GM Proj','Others'],datasets:[{data:[24,20,19,19,129],backgroundColor:[G,B,T,A,S],borderWidth:2,borderColor:'#fff'}]},o:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'right',labels:{boxWidth:11,padding:12}}}}}
-  }
-};
-
-/* ═══ BUILD ACTIONS ═══ */
+/* ═══ BUILD STATIC HTML ═══ */
 function buildActions(){
-  const g=document.getElementById('actionsGrid');
-  g.innerHTML=ACTIONS.map(a=>`
-    <div class="acard ${a.cls}" data-cls="${a.cls}" onclick="this.classList.toggle('open')">
-      <div class="acard-arrow">▼</div>
-      <div class="acard-num">${a.num}</div>
-      <div class="acard-title">${a.title}</div>
-      <span class="badge ${a.badge}">${a.bl}</span>
-      <div class="acard-body">${a.detail}</div>
-    </div>`).join('');
-  document.getElementById('actionFilters').querySelectorAll('.fbtn').forEach(b=>b.addEventListener('click',function(){
-    document.getElementById('actionFilters').querySelectorAll('.fbtn').forEach(x=>x.classList.remove('on'));
-    this.classList.add('on');
-    const f=this.dataset.f;
-    document.querySelectorAll('.acard').forEach(c=>{c.style.display=(f==='all'||c.dataset.cls===f)?'':'none';});
-  }));
+  document.getElementById('actionRows').innerHTML=ACTIONS.map(a=>`
+    <div class="action-row" onclick="this.classList.toggle('open');this.nextElementSibling.style.display=this.classList.contains('open')?'block':'none'">
+      <div class="action-tl ${a.tl}"></div>
+      <div class="action-num-lbl">${a.num}</div>
+      <div class="action-title">${a.title}</div>
+      <span class="action-badge ${a.bc}">${a.badge}</span>
+      <span style="color:var(--muted);font-size:.75rem">▼</span>
+    </div>
+    <div class="action-detail-box">${a.detail}</div>`).join('');
 }
 
-/* ═══ BUILD PERF CHARTS ═══ */
-let activeCh=[];
-function buildPerfCharts(k){
-  document.getElementById('chartsArea').innerHTML=`
-    <div class="ccrd"><div class="ctitle" id="ct1"></div><div class="cwrap"><canvas id="ch1"></canvas></div></div>
-    <div class="ccrd"><div class="ctitle" id="ct2"></div><div class="cwrap"><canvas id="ch2"></canvas></div></div>`;
-  activeCh.forEach(c=>c.destroy());activeCh=[];
-  const d=CHART_DEFS[k];
-  document.getElementById('ct1').textContent=d.L.t;
-  document.getElementById('ct2').textContent=d.R.t;
-  activeCh.push(new Chart(document.getElementById('ch1'),{type:d.L.type,data:d.L.data,options:d.L.o}));
-  activeCh.push(new Chart(document.getElementById('ch2'),{type:d.R.type,data:d.R.data,options:d.R.o}));
-}
-function setupPerfTabs(){
-  document.querySelectorAll('#perfTabs .tab').forEach(t=>t.addEventListener('click',function(){
-    document.querySelectorAll('#perfTabs .tab').forEach(x=>x.classList.remove('on'));
-    this.classList.add('on');buildPerfCharts(this.dataset.chart);
-  }));
-  buildPerfCharts('exposure');
-}
-function buildLagCharts(){
-  const bu=['EMC','Projects','WS','IB'];
-  new Chart(document.getElementById('ltifBU'),{type:'bar',data:{labels:bu,datasets:[{data:[0,0,0.44,0],backgroundColor:[G,B,R,T],borderRadius:4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{grid:{color:'#eaeaea'}}}}});
-  new Chart(document.getElementById('trcfBU'),{type:'bar',data:{labels:['EMC','Projects','WS','U+S'],datasets:[{data:[0.21,0.18,0.88,0.57],backgroundColor:[G,B,R,A],borderRadius:4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{grid:{color:'#eaeaea'}}}}});
-  new Chart(document.getElementById('smvirBU'),{type:'bar',data:{labels:bu,datasets:[{data:[0.04,0,0,0],backgroundColor:[A,G,G,G],borderRadius:4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{grid:{color:'#eaeaea'}}}}});
-  new Chart(document.getElementById('mvirBU'),{type:'bar',data:{labels:['EMC','Projects','WS','U+S'],datasets:[{data:[0.08,0.97,0.57,0],backgroundColor:[G,R,A,G],borderRadius:4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{grid:{color:'#eaeaea'}}}}});
-}
-
-/* ═══ BUILD ANALYSIS ═══ */
-const CAUSALS=[
-  {n:'Hazard ID & Risk Management',p:26,c:R},
-  {n:'Supervision & Leadership',p:24,c:A},
-  {n:'Non-compliance with Procedures',p:14,c:B},
-  {n:'Planning & Communication',p:20,c:T},
-  {n:'Competency / Training Gap',p:16,c:S},
-];
-function buildAnalysis(){
-  document.getElementById('causalRows').innerHTML=CAUSALS.map(c=>`
-    <div class="causal-row">
-      <div class="causal-name">${c.n}</div>
-      <div class="causal-track"><div class="causal-fill" style="background:${c.c}" data-p="${c.p}"></div></div>
-      <div class="causal-pct" style="color:${c.c}">${c.p}%</div>
-    </div>`).join('');
-  new Chart(document.getElementById('actChart'),{type:'doughnut',data:{
-    labels:['Driving 43%','Material Handling 27%','Fabrication 13%','Equipment 10%','Excavation 7%','Other 6%'],
-    datasets:[{data:[43,27,13,10,7,6],backgroundColor:[R,A,G,B,T,S],borderWidth:2,borderColor:'#fff'}]
-  },options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'right',labels:{boxWidth:11,padding:9,font:{size:11}}}}}});
-  document.getElementById('incGrid').innerHTML=INCIDENTS.map(i=>`
-    <div class="inc-card" data-cat="${i.cat}">
-      <span class="inc-tag ${i.tcls}">${i.tag}</span>
-      <div class="inc-date">📅 ${i.date}</div>
-      <div class="inc-desc">${i.desc}</div>
-    </div>`).join('');
-  document.getElementById('incFilters').querySelectorAll('.ifbtn').forEach(b=>b.addEventListener('click',function(){
-    document.getElementById('incFilters').querySelectorAll('.ifbtn').forEach(x=>x.classList.remove('on'));
-    this.classList.add('on');
-    const f=this.dataset.f;
-    document.querySelectorAll('.inc-card').forEach(c=>c.classList.toggle('hidden',f!=='all'&&c.dataset.cat!==f));
-  }));
-}
-
-/* ═══ BUILD AUDITS ═══ */
-function buildAudits(){
-  document.getElementById('aelGrid').innerHTML=AEL.map(e=>`
-    <div class="ael" onclick="this.classList.toggle('open')">
-      <div class="ael-top"><span class="ael-name">${e.name}</span><span class="ael-pct">${e.pct}%</span></div>
-      <div class="ael-track"><div class="ael-fill" data-p="${e.pct*2.5}"></div></div>
-      <div class="ael-hint">Click to expand</div>
-      <div class="ael-detail">${e.detail}</div>
+function buildKpiTl(){
+  document.getElementById('kpiTlGrid').innerHTML=KPI_DATA.map(k=>`
+    <div class="kpi-tl-card animate-count">
+      <div class="kpi-tl-name">${k.name}</div>
+      <div style="display:flex;flex-direction:column;align-items:center">
+        <div class="traffic-light">
+          <div class="tl-light ${k.tl==='r'?'on-r flash-r':''}"></div>
+          <div class="tl-light ${k.tl==='a'?'on-a':''}"></div>
+          <div class="tl-light ${k.tl==='g'?'on-g':''}"></div>
+        </div>
+      </div>
+      <div class="kpi-tl-val">${k.val}</div>
+      <div class="kpi-tl-tgt">Target: <strong>${k.target}</strong></div>
+      <span class="kpi-verdict ${k.vc}">${k.verdict}</span>
+      <div style="font-size:.7rem;color:var(--muted);text-align:center">${k.desc}</div>
     </div>`).join('');
 }
 
-/* ═══ BUILD PROCESS ═══ */
+function buildCases(id,data){
+  document.getElementById(id).innerHTML=data.map(c=>`
+    <div class="case-card ${c.cls}" onclick="this.classList.toggle('open')">
+      <div style="display:flex;gap:.4rem;align-items:center;flex-wrap:wrap">
+        <span class="case-tag ${c.tcls}">${c.tag}</span>
+        <span class="case-sev ${c.sc}">${c.sev}</span>
+      </div>
+      <div class="case-date">📅 ${c.date}</div>
+      <div class="case-desc">${c.desc}</div>
+      <div class="case-lesson">${c.lesson}</div>
+    </div>`).join('');
+}
+
+function buildAuditBars(){
+  document.getElementById('auditBars').innerHTML=AUDIT_EL.map(e=>`
+    <div class="abar-row">
+      <div class="abar-name">${e.name}</div>
+      <div class="abar-track"><div class="abar-fill" data-p="${e.pct*2.5}"></div></div>
+      <div class="abar-pct">${e.pct}%</div>
+    </div>`).join('');
+}
+
 function buildProcess(){
-  document.getElementById('updatedDocs').innerHTML=UPDATED_DOCS.map(d=>`
-    <div class="proc-item"><div class="proc-dot" style="background:var(--gm)"></div><div class="proc-name">${d.n}</div><div class="proc-rev">${d.r}</div></div>`).join('');
-  document.getElementById('newDocs').innerHTML=NEW_DOCS.map(d=>`
-    <div class="proc-item proc-new-item"><div class="proc-dot"></div><div class="proc-name">${d.n}</div><div class="proc-rev">NEW · ${d.r}</div></div>`).join('');
+  document.getElementById('procWrap').innerHTML=`
+    <div>
+      <div class="proc-grp-title">Updated Documents (11)</div>
+      ${UPDATED_DOCS.map(d=>`<div class="proc-row"><div class="proc-dot" style="background:var(--gm)"></div><div class="proc-name">${d.n}</div><div class="proc-rev">${d.r}</div></div>`).join('')}
+    </div>
+    <div>
+      <div class="proc-grp-title">New Releases (4)</div>
+      ${NEW_DOCS.map(d=>`<div class="proc-row proc-new"><div class="proc-dot"></div><div class="proc-name">${d.n}</div><div class="proc-rev">NEW · ${d.r}</div></div>`).join('')}
+    </div>`;
 }
 
-/* ═══ ANIMATED COUNTERS ═══ */
-function animateCounters(){
-  document.querySelectorAll('.cnt').forEach(el=>{
-    const to=+el.dataset.to,dur=1600;let start=null;
-    const step=ts=>{if(!start)start=ts;const p=Math.min((ts-start)/dur,1);el.textContent=Math.floor(p*to);if(p<1)requestAnimationFrame(step);else el.textContent=to;};
-    requestAnimationFrame(step);
-  });
-}
-
-/* ═══ BAR FILL OBSERVER ═══ */
-const barIO=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting){
-      e.target.querySelectorAll('.causal-fill').forEach(b=>b.style.width=b.dataset.p+'%');
-      e.target.querySelectorAll('.ael-fill').forEach(b=>b.style.width=b.dataset.p+'%');
-    }
-  });
-},{threshold:.15});
-
-/* ═══ SCROLL EVENTS ═══ */
-const SECS=['home','actions','performance','analysis','audits','process','compliance'];
-window.addEventListener('scroll',()=>{
-  const h=document.documentElement.scrollHeight-window.innerHeight;
-  document.getElementById('progress-bar').style.width=(window.scrollY/h*100)+'%';
-  let active='home';
-  SECS.forEach(id=>{const el=document.getElementById(id);if(el&&el.getBoundingClientRect().top<=120)active=id;});
-  document.querySelectorAll('.nav-links a').forEach(a=>a.classList.toggle('active',a.dataset.sec===active));
-  document.querySelectorAll('.si-dot').forEach(d=>d.classList.toggle('on',d.dataset.target===active));
-});
-document.querySelectorAll('.si-dot').forEach(d=>d.addEventListener('click',()=>{document.getElementById(d.dataset.target).scrollIntoView({behavior:'smooth'});}));
-
-/* ═══ FADE IN ═══ */
-const fiIO=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis');});},{threshold:.07});
-document.querySelectorAll('.fi').forEach(el=>fiIO.observe(el));
-
-/* ═══ TOOLTIP ═══ */
-const tip=document.getElementById('tip');
-document.addEventListener('mouseover',e=>{const el=e.target.closest('[data-tip]');tip.style.opacity=el?(tip.textContent=el.dataset.tip,'1'):'0';});
-document.addEventListener('mousemove',e=>{tip.style.left=(e.clientX+14)+'px';tip.style.top=(e.clientY-10)+'px';});
-
-/* ═══ PRESENT MODE ═══ */
-let pIdx=0;
-function buildPDots(){
-  document.getElementById('pdots').innerHTML=PRESENT_SLIDES.map((_,i)=>`<div class="pdot${i===0?' on':''}" onclick="goSlide(${i})"></div>`).join('');
-}
-function goSlide(i){
-  pIdx=i;const s=PRESENT_SLIDES[i];
-  document.getElementById('pnum').textContent=`${String(i+1).padStart(2,'0')} / ${PRESENT_SLIDES.length}`;
-  document.getElementById('ptitle').textContent=s.title;
-  document.getElementById('pbody').textContent=s.body;
-  document.getElementById('pkpis').innerHTML=(s.kpis||[]).map(k=>`<div class="pk"><div class="pk-v">${k.v}</div><div class="pk-l">${k.l}</div></div>`).join('');
-  document.querySelectorAll('.pdot').forEach((d,j)=>d.classList.toggle('on',j===i));
-  document.getElementById('pslide').style.animation='none';
-  requestAnimationFrame(()=>{document.getElementById('pslide').style.animation='';});
-}
-function pNav(dir){goSlide((pIdx+dir+PRESENT_SLIDES.length)%PRESENT_SLIDES.length);}
-function openPresent(){document.getElementById('povl').classList.add('active');goSlide(0);}
-function closePresent(){document.getElementById('povl').classList.remove('active');}
-document.addEventListener('keydown',e=>{
-  const ov=document.getElementById('povl').classList.contains('active');
-  if(!ov)return;
-  if(e.key==='ArrowRight')pNav(1);
-  else if(e.key==='ArrowLeft')pNav(-1);
-  else if(e.key==='Escape')closePresent();
-});
-
-/* ═══ PARTICLES ═══ */
-(()=>{
-  const c=document.getElementById('particles');
-  for(let i=0;i<18;i++){
-    const s=document.createElement('span');
-    const sz=4+Math.random()*10;
-    s.style.cssText=`width:${sz}px;height:${sz}px;left:${Math.random()*100}%;background:${Math.random()>.5?'var(--gl)':'var(--teal)'};animation-duration:${8+Math.random()*12}s;animation-delay:${Math.random()*8}s`;
-    c.appendChild(s);
+/* ═══ CHARTS ═══ */
+let chartsBuilt={};
+function buildCharts(slideId){
+  if(chartsBuilt[slideId])return;
+  chartsBuilt[slideId]=true;
+  if(slideId==='s5'){
+    new Chart(document.getElementById('cExp'),{type:'line',data:{labels:['2021','2022','2023','2024','2025'],datasets:[
+      {label:'Mln Manhours',data:[41.08,44.26,41.77,45.80,47.16],borderColor:B,backgroundColor:'rgba(52,152,219,.08)',tension:.35,pointRadius:5,borderWidth:2.5},
+      {label:'Mln Kms',data:[43.50,41.04,43.04,47.90,43.86],borderColor:R,backgroundColor:'rgba(192,57,43,.08)',tension:.35,pointRadius:5,borderWidth:2.5}
+    ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{boxWidth:11,padding:12,color:'#8b949e'}}},scales:{y:{grid:GRID},x:{grid:GRID}}}});
+    new Chart(document.getElementById('cInc'),{type:'line',data:{labels:['2021','2022','2023','2024','2025'],datasets:[
+      {label:'Incidents',data:[226,317,303,363,313],borderColor:R,backgroundColor:'rgba(192,57,43,.08)',tension:.3,pointRadius:5,borderWidth:2.5},
+      {label:'Near Misses',data:[102,160,170,227,206],borderColor:G,backgroundColor:'rgba(39,174,96,.08)',tension:.3,pointRadius:5,borderWidth:2.5}
+    ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{boxWidth:11,padding:12,color:'#8b949e'}}},scales:{y:{grid:GRID},x:{grid:GRID}}}});
   }
-})();
+  if(slideId==='s6'){
+    const bu=['EMC','Projects','WS','IB'];
+    const opts={responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{grid:GRID},x:{grid:GRID,ticks:{color:'#8b949e'}}}};
+    new Chart(document.getElementById('cLTIF'),{type:'bar',data:{labels:bu,datasets:[{data:[0,0,0.44,0],backgroundColor:[G,B,R,T],borderRadius:4}]},options:opts});
+    new Chart(document.getElementById('cTRCF'),{type:'bar',data:{labels:bu,datasets:[{data:[0.21,0.18,0.88,0.57],backgroundColor:[G,B,R,A],borderRadius:4}]},options:opts});
+    new Chart(document.getElementById('cSMVIR'),{type:'bar',data:{labels:bu,datasets:[{data:[0.04,0,0,0],backgroundColor:[A,G,G,G],borderRadius:4}]},options:opts});
+    new Chart(document.getElementById('cMVIR'),{type:'bar',data:{labels:bu,datasets:[{data:[0.08,0.97,0.57,0],backgroundColor:[G,R,A,G],borderRadius:4}]},options:opts});
+  }
+}
+
+/* ═══ AUDIT BAR ANIMATION ═══ */
+function animateAuditBars(){
+  document.querySelectorAll('.abar-fill').forEach(b=>{
+    b.style.width='0';
+    setTimeout(()=>{b.style.width=b.dataset.p+'%';},100);
+  });
+}
+
+/* ═══ COUNTER ANIMATION ═══ */
+function runCounter(el,to,dur=1200){
+  let start=null;
+  const step=ts=>{
+    if(!start)start=ts;
+    const p=Math.min((ts-start)/dur,1);
+    el.textContent=Math.floor(p*to);
+    if(p<1)requestAnimationFrame(step);else el.textContent=to;
+  };
+  requestAnimationFrame(step);
+}
+
+/* ═══ SLIDE ENGINE ═══ */
+const slides=Array.from(document.querySelectorAll('.slide'));
+let curSlide=0;
+
+function buildDots(){
+  const wrap=document.getElementById('dots-wrap');
+  wrap.innerHTML=slides.map((_,i)=>`<div class="ndot${i===0?' on':''}" onclick="goSlide(${i})"></div>`).join('');
+}
+
+function goSlide(n){
+  if(n<0||n>=slides.length)return;
+  slides[curSlide].classList.remove('active');
+  slides[curSlide].classList.add('exit-left');
+  setTimeout(()=>slides[curSlide].classList.remove('exit-left'),600);
+  curSlide=n;
+  const s=slides[n];
+  s.classList.add('active');
+  document.getElementById('slide-counter').textContent=`${n+1} / ${slides.length}`;
+  document.getElementById('slide-title-bar').textContent=s.dataset.title||'';
+  document.getElementById('btnPrev').disabled=n===0;
+  document.getElementById('btnNext').disabled=n===slides.length-1;
+  document.querySelectorAll('.ndot').forEach((d,i)=>d.classList.toggle('on',i===n));
+  document.getElementById('prog').style.width=((n+1)/slides.length*100)+'%';
+  // slide-specific
+  buildCharts(s.id);
+  if(s.id==='s12')setTimeout(animateAuditBars,400);
+  if(s.id==='s1'){runCounter(document.getElementById('cnt1'),47);runCounter(document.getElementById('cnt2'),44);runCounter(document.getElementById('cnt3'),262);}
+}
+
+/* ═══ KEYBOARD ═══ */
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight'||e.key==='ArrowDown'||e.key===' ')goSlide(curSlide+1);
+  if(e.key==='ArrowLeft'||e.key==='ArrowUp')goSlide(curSlide-1);
+  if(e.key==='f'||e.key==='F')toggleFullscreen();
+});
+
+/* ═══ TOUCH SWIPE ═══ */
+let tx=0;
+document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;},{passive:true});
+document.addEventListener('touchend',e=>{
+  const dx=e.changedTouches[0].clientX-tx;
+  if(Math.abs(dx)>50){dx<0?goSlide(curSlide+1):goSlide(curSlide-1);}
+});
+
+/* ═══ FULLSCREEN ═══ */
+function toggleFullscreen(){
+  if(!document.fullscreenElement)document.documentElement.requestFullscreen().catch(()=>{});
+  else document.exitFullscreen();
+}
 
 /* ═══ INIT ═══ */
 buildActions();
-setupPerfTabs();
-buildLagCharts();
-buildAnalysis();
-buildAudits();
+buildKpiTl();
+buildCases('caseGridDrive',CASES_DRIVE);
+buildCases('caseGridMHFab',CASES_MH_FAB);
+buildAuditBars();
 buildProcess();
-buildPDots();
-animateCounters();
-document.querySelectorAll('#analysis,#audits').forEach(el=>barIO.observe(el));
+buildDots();
+document.getElementById('btnPrev').disabled=true;
+document.getElementById('prog').style.width=(1/slides.length*100)+'%';
+
+// start hero counters immediately on load
+setTimeout(()=>{
+  runCounter(document.getElementById('cnt1'),47);
+  runCounter(document.getElementById('cnt2'),44);
+  runCounter(document.getElementById('cnt3'),262);
+},500);
 </script>
 </body>
 </html>
